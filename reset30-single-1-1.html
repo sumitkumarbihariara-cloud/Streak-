@@ -1,0 +1,3398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0A0E1A">
+<title>RESET 30 — Master Your Urges</title>
+<style>
+:root{
+  --bg-0:#080B14;
+  --bg-1:#0F1523;
+  --glass:rgba(255,255,255,0.045);
+  --glass-border:rgba(255,255,255,0.09);
+  --ink:#F1F4FB;
+  --ink-dim:#8B93A8;
+  --accent:#7C5CFF;
+  --accent-2:#3FD6C8;
+  --gold:#F2B84B;
+  --danger:#FF6B6B;
+  --success:#4ADE80;
+  --radius-lg:22px;
+  --radius-md:16px;
+  --radius-sm:10px;
+}
+[data-theme="light"]{
+  --bg-0:#F4F5FA;
+  --bg-1:#FFFFFF;
+  --glass:rgba(20,20,30,0.03);
+  --glass-border:rgba(20,20,30,0.08);
+  --ink:#151826;
+  --ink-dim:#63687C;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  background:var(--bg-0);
+  color:var(--ink);
+  font-family:-apple-system, BlinkMacSystemFont,'Segoe UI', Roboto, sans-serif;
+  overflow-x:hidden;
+  min-height:100vh;
+}
+.hidden{display:none !important;}
+button, select, input, textarea{ font-family:inherit; color:inherit; }
+button{ cursor:pointer; transition:transform 0.28s cubic-bezier(.34,1.56,.64,1); }
+button:active{ transform:scale(0.94); }
+
+/* Ripple effect */
+.rippleable{ position:relative; overflow:hidden; }
+.ripple-el{
+  position:absolute; border-radius:50%; background:rgba(255,255,255,0.35);
+  transform:scale(0); animation:rippleAnim 0.6s ease-out forwards; pointer-events:none;
+}
+@keyframes rippleAnim{
+  to{ transform:scale(2.6); opacity:0; }
+}
+
+#particles{
+  position:fixed; inset:0; z-index:0; opacity:0.5; pointer-events:none;
+}
+
+.app{ position:relative; z-index:1; max-width:480px; margin:0 auto; min-height:100vh; padding-bottom:86px; }
+
+.topbar{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:18px 18px 6px;
+}
+.brand{ font-size:19px; font-weight:800; letter-spacing:0.5px; }
+.brand .accent{ color:var(--accent); }
+.icon-btn{
+  background:var(--glass); border:1px solid var(--glass-border);
+  width:38px; height:38px; border-radius:12px; font-size:16px;
+  display:flex; align-items:center; justify-content:center;
+}
+
+.glass{
+  background:var(--glass);
+  border:1px solid var(--glass-border);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+}
+
+.view{ display:none; padding:8px 16px 20px; }
+.view.active{ display:block; }
+.view.slide-in-right{ animation:slideInRight 0.38s cubic-bezier(.25,.8,.4,1); }
+.view.slide-in-left{ animation:slideInLeft 0.38s cubic-bezier(.25,.8,.4,1); }
+@keyframes slideInRight{ from{ opacity:0; transform:translateX(28px); } to{ opacity:1; transform:translateX(0); } }
+@keyframes slideInLeft{ from{ opacity:0; transform:translateX(-28px); } to{ opacity:1; transform:translateX(0); } }
+@keyframes fadeIn{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);} }
+
+/* HERO */
+.hero{
+  border-radius:var(--radius-lg);
+  padding:22px 18px 20px;
+  text-align:center;
+  margin-top:8px;
+  position:relative;
+  overflow:hidden;
+}
+.hero::before{
+  content:"";
+  position:absolute; inset:-40% -40% auto -40%; height:200%;
+  background:radial-gradient(closest-side, rgba(124,92,255,0.16), transparent 70%);
+  pointer-events:none;
+}
+.hero-tagline{ color:var(--ink-dim); font-size:13px; margin:0 0 10px; }
+
+.ring-wrap{ position:relative; width:200px; height:200px; margin:0 auto; }
+.progress-ring{ width:200px; height:200px; transform:rotate(-90deg); }
+.progress-ring.small{ width:160px; height:160px; }
+.ring-bg{ fill:none; stroke:var(--glass-border); stroke-width:12; }
+.ring-fg{
+  fill:none; stroke:url(#none); stroke:var(--accent); stroke-width:12; stroke-linecap:round;
+  stroke-dasharray:540; stroke-dashoffset:540;
+  transition:stroke-dashoffset 0.8s cubic-bezier(.4,0,.2,1);
+}
+.ring-center{
+  position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;
+}
+.flame-wrap{ position:relative; width:34px; height:34px; margin:0 auto; }
+.flame{
+  font-size:24px; position:absolute; left:50%; bottom:0; transform:translateX(-50%);
+  animation:flicker 1.8s ease-in-out infinite; filter:drop-shadow(0 0 6px rgba(255,140,60,0.55));
+}
+.flame-2{ font-size:16px; opacity:0.7; animation-duration:1.3s; animation-delay:0.2s; }
+@keyframes flicker{
+  0%,100%{ transform:translateX(-50%) scale(1) rotate(-3deg); }
+  35%{ transform:translateX(-50%) scale(1.12) rotate(2deg); }
+  70%{ transform:translateX(-50%) scale(0.95) rotate(-1deg); }
+}
+.streak-num{ font-size:44px; font-weight:800; line-height:1.1; }
+.streak-word{ font-size:11px; letter-spacing:2px; color:var(--ink-dim); }
+.keep-going{ margin:10px 0 2px; font-weight:600; }
+.quote{ color:var(--ink-dim); font-size:12.5px; font-style:italic; min-height:18px; animation:fadeIn 0.5s ease; }
+
+.stat-row{ display:flex; gap:10px; margin-top:14px; }
+.stat-chip{
+  flex:1; border-radius:var(--radius-md); padding:12px 8px; text-align:center;
+}
+.stat-chip b{ display:block; font-size:19px; }
+.stat-chip span{ font-size:10.5px; color:var(--ink-dim); }
+
+.section-block{ margin-top:20px; }
+.section-head{ display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
+.section-head h3{ font-size:14.5px; margin:0; font-weight:700; }
+.section-head h2{ margin:0; font-size:16px; }
+
+.challenge-pills{ display:flex; gap:8px; flex-wrap:wrap; }
+.challenge-pills button{
+  flex:1; min-width:52px; background:var(--glass); border:1px solid var(--glass-border);
+  border-radius:12px; padding:10px 0; font-weight:700; font-size:13px;
+}
+.challenge-pills button.active{ background:var(--accent); border-color:var(--accent); color:#fff; }
+
+.mission-list{ display:flex; flex-direction:column; gap:8px; }
+.mission-item{
+  display:flex; align-items:center; gap:10px;
+  background:var(--glass); border:1px solid var(--glass-border);
+  border-radius:14px; padding:12px 14px; font-size:13.5px;
+}
+.mission-item input{ width:20px; height:20px; accent-color:var(--accent); }
+.mission-item.done{ opacity:0.55; text-decoration:line-through; }
+.mission-xp{ margin-left:auto; font-size:11px; color:var(--gold); font-weight:700; }
+
+.urge-btn{
+  width:100%; margin-top:22px; padding:18px; border:none; border-radius:18px;
+  background:linear-gradient(135deg, var(--accent), #4C34D8);
+  color:#fff; font-weight:800; font-size:15px; letter-spacing:0.4px;
+  box-shadow:0 8px 30px rgba(124,92,255,0.35);
+}
+.urge-btn.small{ margin-top:14px; padding:13px; font-size:13.5px; }
+.urge-btn:active{ transform:scale(0.98); }
+
+.link-row{
+  display:block; width:100%; text-align:center; background:none; border:none;
+  color:var(--ink-dim); font-size:12.5px; padding:10px 0; margin-top:4px;
+}
+.link-row span{ color:var(--gold); }
+
+.freeze-btn{ margin-top:10px; color:var(--accent-2); border-color:rgba(63,214,200,0.3); }
+.freeze-btn span{ color:var(--ink-dim); font-size:11px; }
+
+.row-2{ display:flex; gap:10px; margin-top:12px; }
+.secondary-btn{
+  flex:1; padding:13px; border-radius:14px; text-align:center;
+  background:var(--glass); border:1px solid var(--glass-border); font-weight:600; font-size:13px;
+}
+.danger-outline{ color:var(--danger); border-color:rgba(255,107,107,0.35); }
+.danger-solid{ background:rgba(255,107,107,0.15); color:var(--danger); border-color:rgba(255,107,107,0.3); }
+.file-label{ display:block; margin-top:8px; }
+
+/* CALENDAR */
+.cal-legend{ display:flex; flex-wrap:wrap; gap:10px; font-size:10.5px; color:var(--ink-dim); margin-bottom:10px; }
+.cal-legend .dot{ width:8px; height:8px; border-radius:50%; display:inline-block; margin-right:4px; }
+.dot.completed{ background:var(--success); }
+.dot.strong{ background:var(--gold); }
+.dot.reset{ background:var(--danger); }
+.dot.upcoming{ background:var(--glass-border); }
+.dot.frozen{ background:var(--accent-2); }
+
+.cal-grid{ display:grid; grid-template-columns:repeat(7,1fr); gap:6px; position:relative; }
+.cal-dow{ text-align:center; font-size:10px; color:var(--ink-dim); padding-bottom:4px; }
+.cal-day{
+  aspect-ratio:1; border-radius:10px; background:var(--glass); border:1px solid var(--glass-border);
+  display:flex; align-items:center; justify-content:center; font-size:12px; color:var(--ink-dim);
+  position:relative;
+}
+.cal-day.empty{ background:transparent; border-color:transparent; }
+.cal-day.completed{ background:rgba(74,222,128,0.18); color:var(--success); font-weight:700; box-shadow:0 0 14px rgba(74,222,128,0.25); }
+.cal-day.strong{ background:rgba(242,184,75,0.18); color:var(--gold); font-weight:700; box-shadow:0 0 14px rgba(242,184,75,0.25); }
+.cal-day.urge_handled{ background:rgba(63,214,200,0.16); color:var(--accent-2); font-weight:700; }
+.cal-day.reset{ background:rgba(255,107,107,0.16); color:var(--danger); font-weight:700; }
+.cal-day.frozen{ background:rgba(63,214,200,0.16); color:var(--accent-2); font-weight:700; box-shadow:0 0 12px rgba(63,214,200,0.25); }
+.cal-day.today{ box-shadow:inset 0 0 0 1.5px var(--accent); }
+
+/* PROGRESS */
+.score-card{ border-radius:var(--radius-lg); padding:18px; display:flex; justify-content:center; margin-top:6px; }
+.score-ring-wrap{ position:relative; width:160px; height:160px; }
+.progress-grid{ display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:16px; }
+.bar-chart{ width:100%; height:110px; }
+.insights-list{ display:flex; flex-direction:column; gap:8px; }
+.insight-item{
+  background:var(--glass); border:1px solid var(--glass-border); border-radius:12px;
+  padding:10px 12px; font-size:12.5px; color:var(--ink-dim);
+}
+
+/* SETTINGS */
+.settings-block{ border-radius:var(--radius-md); padding:14px 16px; margin-top:14px; }
+.settings-row{ display:flex; align-items:center; justify-content:space-between; padding:9px 0; font-size:13.5px; }
+.settings-row select, .settings-row input[type=time]{
+  background:var(--bg-1); border:1px solid var(--glass-border); border-radius:8px; padding:6px 8px; color:var(--ink);
+}
+.privacy-note{ font-size:11.5px; color:var(--ink-dim); margin:0 0 10px; line-height:1.5; }
+.switch{ position:relative; width:42px; height:24px; display:inline-block; }
+.switch input{ opacity:0; width:0; height:0; }
+.slider{
+  position:absolute; inset:0; background:var(--glass-border); border-radius:20px; transition:0.2s;
+}
+.slider::before{
+  content:""; position:absolute; width:18px; height:18px; left:3px; top:3px;
+  background:#fff; border-radius:50%; transition:0.2s;
+}
+input:checked + .slider{ background:var(--accent); }
+input:checked + .slider::before{ transform:translateX(18px); }
+
+/* BOTTOM NAV */
+.bottom-nav{
+  position:fixed; bottom:0; left:0; right:0; max-width:480px; margin:0 auto;
+  display:flex; background:rgba(15,21,35,0.85); backdrop-filter:blur(20px);
+  border-top:1px solid var(--glass-border); padding:8px 4px calc(8px + env(safe-area-inset-bottom));
+  z-index:20;
+}
+[data-theme="light"] .bottom-nav{ background:rgba(255,255,255,0.85); }
+.nav-btn{
+  flex:1; background:none; border:none; display:flex; flex-direction:column; align-items:center; gap:2px;
+  font-size:10px; color:var(--ink-dim); padding:6px 0; border-radius:10px;
+}
+.nav-btn span{ font-size:18px; }
+.nav-btn.active{ color:var(--accent); }
+
+/* MODALS */
+.modal-overlay{
+  position:fixed; inset:0; background:rgba(4,6,12,0.65); z-index:50;
+  display:flex; align-items:flex-end; justify-content:center;
+}
+.modal{
+  width:100%; max-width:480px; border-radius:24px 24px 0 0; padding:20px 20px calc(20px + env(safe-area-inset-bottom));
+  max-height:85vh; overflow-y:auto; animation:slideUp 0.3s ease;
+}
+@keyframes slideUp{ from{ transform:translateY(30px); opacity:0; } to{ transform:translateY(0); opacity:1; } }
+.modal-head{ display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
+.modal-head h3{ margin:0; }
+.close-btn{ background:none; border:none; font-size:22px; color:var(--ink-dim); }
+.modal label{ display:block; font-size:12px; color:var(--ink-dim); margin:12px 0 5px; }
+.modal select, .modal input[type=text], .modal textarea, .modal input[type=range]{
+  width:100%; background:var(--bg-1); border:1px solid var(--glass-border); border-radius:10px;
+  padding:10px; font-size:13.5px;
+}
+.modal textarea{ resize:vertical; min-height:60px; }
+.option-grid{ display:flex; flex-wrap:wrap; gap:8px; margin-top:6px; }
+.option-grid button{
+  background:var(--glass); border:1px solid var(--glass-border); border-radius:12px; padding:9px 12px; font-size:12.5px;
+}
+.option-grid button.selected{ background:var(--accent); border-color:var(--accent); color:#fff; }
+.reset-message{ text-align:center; padding:16px 0; }
+.accent-text{ color:var(--accent-2); font-weight:700; }
+
+/* ACHIEVEMENTS */
+.achievements-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-top:6px; }
+.ach-card{
+  background:var(--glass); border:1px solid var(--glass-border); border-radius:14px;
+  padding:14px 10px; text-align:center; transition:transform 0.2s ease;
+}
+.ach-card.unlocked{ background:rgba(242,184,75,0.12); border-color:rgba(242,184,75,0.35); animation:achPop 0.4s ease; }
+.ach-card .ach-icon{ font-size:26px; margin-bottom:6px; display:block; }
+.ach-card.locked .ach-icon{ filter:grayscale(1) opacity(0.35); }
+.ach-card.locked{ opacity:0.55; }
+.ach-name{ font-size:12px; font-weight:700; }
+.ach-day{ font-size:10.5px; color:var(--ink-dim); }
+@keyframes achPop{ from{ transform:scale(0.85); opacity:0; } to{ transform:scale(1); opacity:1; } }
+
+/* JOURNAL TIMELINE */
+.journal-list{ display:flex; flex-direction:column; gap:10px; max-height:60vh; }
+.journal-item{
+  background:var(--glass); border:1px solid var(--glass-border); border-left:3px solid var(--accent);
+  border-radius:10px; padding:10px 12px; font-size:12.5px;
+}
+.journal-date{ font-weight:700; font-size:12px; margin-bottom:4px; }
+.journal-meta{ color:var(--ink-dim); font-size:11px; margin-bottom:4px; }
+.journal-note{ color:var(--ink); }
+.journal-empty{ color:var(--ink-dim); font-size:13px; text-align:center; padding:30px 0; }
+
+/* WEEKLY REVIEW */
+.weekly-review-body{ display:flex; flex-direction:column; gap:10px; margin:10px 0 16px; }
+.wr-stat{
+  display:flex; justify-content:space-between; background:var(--glass);
+  border:1px solid var(--glass-border); border-radius:10px; padding:10px 14px; font-size:13px;
+}
+.wr-stat b{ color:var(--accent-2); }
+
+/* SHARE CARD */
+.share-canvas{ width:100%; border-radius:16px; margin:8px 0 14px; background:#0B0F1E; }
+
+/* URGE OVERLAY */
+.overlay{ position:fixed; inset:0; z-index:60; display:flex; align-items:center; justify-content:center; }
+.urge-overlay{
+  background:radial-gradient(circle at 50% 30%, #1a1440, #05060d 75%);
+  flex-direction:column; padding:30px; text-align:center;
+}
+.urge-step{ width:100%; max-width:380px; display:flex; flex-direction:column; align-items:center; }
+.breathing-circle{
+  width:180px; height:180px; border-radius:50%;
+  background:radial-gradient(circle, rgba(124,92,255,0.35), rgba(124,92,255,0.05));
+  border:2px solid var(--accent);
+  display:flex; align-items:center; justify-content:center; font-weight:700; font-size:15px;
+  animation:breathe 8s ease-in-out infinite;
+  margin-bottom:20px;
+}
+@keyframes breathe{
+  0%,100%{ transform:scale(0.85); }
+  40%{ transform:scale(1.15); }
+  60%{ transform:scale(1.15); }
+}
+.urge-sub{ color:var(--ink-dim); font-size:13px; margin-bottom:18px; }
+.timer-display{ font-size:34px; font-weight:800; margin:10px 0 16px; color:var(--accent-2); }
+.badge-burst{ font-size:52px; animation:pop 0.5s ease; }
+@keyframes pop{ from{ transform:scale(0); } to{ transform:scale(1); } }
+
+/* PIN OVERLAY */
+.pin-card{ width:88%; max-width:340px; border-radius:24px; padding:26px; text-align:center; }
+.pin-dots{ display:flex; justify-content:center; gap:12px; margin:18px 0; }
+.pin-dots span{ width:12px; height:12px; border-radius:50%; background:var(--glass-border); display:inline-block; }
+.pin-dots span.filled{ background:var(--accent); }
+.pin-pad{ display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+.pin-pad button{
+  padding:16px 0; border-radius:14px; background:var(--glass); border:1px solid var(--glass-border);
+  font-size:16px; font-weight:700;
+}
+.pin-error{ color:var(--danger); font-size:12px; min-height:16px; }
+
+/* BADGE TOAST */
+.badge-toast{
+  position:fixed; top:14px; left:50%; transform:translateX(-50%);
+  display:flex; align-items:center; gap:10px; background:rgba(15,21,35,0.95);
+  border:1px solid var(--glass-border); border-radius:16px; padding:12px 16px; z-index:80;
+  animation:toastIn 0.4s ease; box-shadow:0 10px 30px rgba(0,0,0,0.4);
+  max-width:90%;
+}
+@keyframes toastIn{ from{ transform:translate(-50%,-20px); opacity:0; } to{ transform:translate(-50%,0); opacity:1; } }
+.badge-icon{ font-size:24px; }
+.badge-title{ font-weight:700; font-size:13px; }
+.badge-sub{ font-size:11.5px; color:var(--ink-dim); }
+
+#confettiCanvasWrap{ position:fixed; inset:0; pointer-events:none; z-index:90; }
+
+@media (prefers-reduced-motion: reduce){
+  *{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; }
+}
+
+/* =========================================================
+   PREMIUM ANIMATION LAYER
+========================================================= */
+:root{
+  --motion-fast:180ms;
+  --motion-normal:320ms;
+  --motion-slow:700ms;
+  --spring:cubic-bezier(.16,1,.3,1);
+}
+
+/* --- Ambient background blobs (behind #particles) --- */
+#ambientBg{ position:fixed; inset:0; z-index:0; overflow:hidden; pointer-events:none; }
+.blob{
+  position:absolute; border-radius:50%; filter:blur(50px); opacity:0.35;
+  will-change:transform;
+}
+.blob-1{ width:260px; height:260px; left:-60px; top:-40px; background:radial-gradient(circle, var(--accent), transparent 70%); animation:blobDrift1 26s ease-in-out infinite; }
+.blob-2{ width:220px; height:220px; right:-50px; top:30%; background:radial-gradient(circle, var(--accent-2), transparent 70%); animation:blobDrift2 32s ease-in-out infinite; }
+.blob-3{ width:200px; height:200px; left:10%; bottom:-60px; background:radial-gradient(circle, var(--gold), transparent 70%); animation:blobDrift3 30s ease-in-out infinite; opacity:0.2; }
+@keyframes blobDrift1{ 0%,100%{ transform:translate(0,0) scale(1); } 50%{ transform:translate(40px,60px) scale(1.15); } }
+@keyframes blobDrift2{ 0%,100%{ transform:translate(0,0) scale(1); } 50%{ transform:translate(-30px,-40px) scale(1.1); } }
+@keyframes blobDrift3{ 0%,100%{ transform:translate(0,0) scale(1); } 50%{ transform:translate(20px,-30px) scale(1.08); } }
+.orb{ position:absolute; border-radius:50%; background:rgba(124,92,255,0.5); filter:blur(1px); animation:orbFloat linear infinite; }
+@keyframes orbFloat{ from{ transform:translateY(0); opacity:0; } 10%{opacity:0.6;} 90%{opacity:0.4;} to{ transform:translateY(-110vh); opacity:0; } }
+@media (max-width:420px){ .blob{ filter:blur(36px); } }
+
+/* --- Page / view transitions (premium) --- */
+.view{ will-change:transform, opacity, filter; }
+.view.slide-in-right{ animation:viewInR var(--motion-normal) var(--spring); }
+.view.slide-in-left{ animation:viewInL var(--motion-normal) var(--spring); }
+@keyframes viewInR{ from{ opacity:0; transform:translateX(22px) scale(0.985); filter:blur(4px); } to{ opacity:1; transform:translateX(0) scale(1); filter:blur(0); } }
+@keyframes viewInL{ from{ opacity:0; transform:translateX(-22px) scale(0.985); filter:blur(4px); } to{ opacity:1; transform:translateX(0) scale(1); filter:blur(0); } }
+
+/* --- Buttons alive --- */
+button{ position:relative; }
+.rippleable{ transition:transform var(--motion-fast) var(--spring), box-shadow var(--motion-fast) ease; }
+.rippleable:active{ transform:scale(0.95); }
+.urge-btn{ position:relative; overflow:hidden; animation:urgeBreathe 3.6s ease-in-out infinite; }
+.urge-btn::after{
+  content:""; position:absolute; inset:0; border-radius:inherit;
+  background:linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.22) 48%, transparent 66%);
+  background-size:220% 100%; background-position:120% 0; pointer-events:none;
+  animation:urgeShine 4.5s ease-in-out infinite;
+}
+@keyframes urgeShine{ 0%,60%{ background-position:130% 0; } 80%{ background-position:-30% 0; } 100%{ background-position:-30% 0; } }
+@keyframes urgeBreathe{ 0%,100%{ box-shadow:0 8px 30px rgba(124,92,255,0.35); } 50%{ box-shadow:0 10px 40px rgba(124,92,255,0.55); } }
+.urge-btn.small{ animation:none; }
+.urge-btn.small::after{ display:none; }
+
+/* --- Hero streak ring upgrades --- */
+.ring-wrap{ overflow:visible; }
+.ring-wrap::before{
+  content:""; position:absolute; inset:-14px; border-radius:50%;
+  border:1px solid rgba(124,92,255,0.25);
+  animation:outerPulse 3.2s ease-in-out infinite;
+  pointer-events:none;
+}
+@keyframes outerPulse{ 0%,100%{ transform:scale(0.97); opacity:0.5; } 50%{ transform:scale(1.03); opacity:0.9; } }
+.ring-halo{
+  position:absolute; inset:6px; border-radius:50%; pointer-events:none;
+  background:conic-gradient(from 0deg, transparent, rgba(124,92,255,0.35), transparent 30%);
+  animation:ringSpin 6s linear infinite; opacity:0.7; filter:blur(2px);
+}
+@keyframes ringSpin{ to{ transform:rotate(360deg); } }
+.ring-fg{ filter:drop-shadow(0 0 6px rgba(124,92,255,0.6)); }
+.spark{
+  position:absolute; width:3px; height:3px; border-radius:50%; background:var(--gold);
+  animation:sparkRise 1.6s ease-out forwards; pointer-events:none;
+}
+@keyframes sparkRise{ 0%{ transform:translateY(0) scale(1); opacity:1; } 100%{ transform:translateY(-34px) translateX(var(--sx,0px)) scale(0.3); opacity:0; } }
+.streak-num.pulse{ animation:numPulse var(--motion-normal) var(--spring); }
+@keyframes numPulse{ 0%{ transform:scale(1); } 40%{ transform:scale(1.22); text-shadow:0 0 18px rgba(124,92,255,0.7); } 100%{ transform:scale(1); } }
+.floating-plusday{
+  position:absolute; left:50%; top:36%; transform:translate(-50%,0);
+  font-weight:800; font-size:15px; color:var(--gold); pointer-events:none;
+  animation:plusDayFloat 1.4s ease-out forwards; white-space:nowrap; z-index:5;
+}
+@keyframes plusDayFloat{ 0%{ opacity:0; transform:translate(-50%,10px) scale(0.8);} 20%{ opacity:1; transform:translate(-50%,-6px) scale(1.05);} 100%{ opacity:0; transform:translate(-50%,-46px) scale(1);} }
+.glow-burst{
+  position:absolute; inset:0; border-radius:50%; pointer-events:none;
+  box-shadow:0 0 0 0 rgba(124,92,255,0.55);
+  animation:glowBurst 0.9s ease-out forwards;
+}
+@keyframes glowBurst{ from{ box-shadow:0 0 0 0 rgba(124,92,255,0.55); } to{ box-shadow:0 0 0 40px rgba(124,92,255,0); } }
+
+/* --- Stat chips / cards lift --- */
+.stat-chip, .ach-card, .mission-item, .insight-item{ transition:transform var(--motion-fast) var(--spring), box-shadow var(--motion-fast) ease, border-color var(--motion-fast) ease; }
+.stat-chip:active, .mission-item:active{ transform:scale(0.97); }
+.mission-item.just-done{ animation:missionSuccess var(--motion-normal) var(--spring); }
+@keyframes missionSuccess{ 0%{ transform:scale(1); } 45%{ transform:scale(1.03); box-shadow:0 0 18px rgba(74,222,128,0.35); } 100%{ transform:scale(1); } }
+.xp-float{
+  position:fixed; font-weight:800; font-size:13px; color:var(--gold); pointer-events:none; z-index:200;
+  animation:xpFloat 1s ease-out forwards;
+}
+@keyframes xpFloat{ 0%{ opacity:0; transform:translateY(0) scale(0.8); } 15%{ opacity:1; transform:translateY(-6px) scale(1.1);} 100%{ opacity:0; transform:translateY(-60px) scale(1);} }
+#xpVal.pulse, #bestStreakVal.pulse, #totalDaysVal.pulse{ animation:numPulse var(--motion-normal) var(--spring); }
+
+/* --- Bottom nav premium --- */
+.bottom-nav{ position:fixed; }
+.nav-btn{ position:relative; z-index:1; transition:color var(--motion-fast) ease; }
+.nav-btn span{ display:inline-block; transition:transform var(--motion-fast) var(--spring); }
+.nav-btn.active span{ transform:translateY(-2px) scale(1.12); }
+.nav-btn.just-tapped span{ animation:navBounce 0.4s var(--spring); }
+@keyframes navBounce{ 0%{ transform:scale(1); } 40%{ transform:scale(1.3) translateY(-3px); } 100%{ transform:scale(1.12) translateY(-2px); } }
+.nav-indicator{
+  position:absolute; bottom:4px; height:3px; width:22px; border-radius:3px;
+  background:var(--accent); transition:transform var(--motion-normal) var(--spring), left var(--motion-normal) var(--spring);
+  pointer-events:none; z-index:0;
+}
+
+/* --- Calendar --- */
+.cal-day{ transition:transform var(--motion-fast) var(--spring), box-shadow var(--motion-fast) ease; opacity:0; animation:calDayIn var(--motion-normal) var(--spring) forwards; }
+.cal-day.empty{ animation:none; opacity:1; }
+@keyframes calDayIn{ from{ opacity:0; transform:translateY(6px) scale(0.9); } to{ opacity:1; transform:translateY(0) scale(1); } }
+.cal-day:active{ transform:scale(0.9); }
+.cal-day.today{ animation:calDayIn var(--motion-normal) var(--spring) forwards, todayGlow 2.2s ease-in-out infinite; }
+@keyframes todayGlow{ 0%,100%{ box-shadow:inset 0 0 0 1.5px var(--accent), 0 0 6px rgba(124,92,255,0.25);} 50%{ box-shadow:inset 0 0 0 1.5px var(--accent), 0 0 14px rgba(124,92,255,0.55);} }
+.cal-day.just-completed{ animation:calComplete 0.5s var(--spring); }
+@keyframes calComplete{ 0%{ transform:scale(1); } 45%{ transform:scale(1.22); box-shadow:0 0 18px rgba(74,222,128,0.6); } 100%{ transform:scale(1); } }
+.cal-day.just-uncompleted{ animation:calUncomplete 0.4s ease; }
+@keyframes calUncomplete{ 0%{ transform:scale(1); opacity:1; } 50%{ transform:scale(0.85); opacity:0.5; } 100%{ transform:scale(1); opacity:1; } }
+.cal-day.frozen{ position:relative; }
+.cal-day .check-pop{
+  position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+  font-size:13px; color:var(--success); animation:checkPop 0.5s var(--spring) forwards; pointer-events:none;
+}
+@keyframes checkPop{ 0%{ opacity:0; transform:scale(0.4); } 50%{ opacity:1; transform:scale(1.3); } 100%{ opacity:0; transform:scale(1); } }
+.cal-tap-hint{ font-size:10px; color:var(--ink-dim); text-align:center; margin:6px 0 0; }
+
+/* --- Modals --- */
+.modal-overlay{ animation:overlayFade var(--motion-normal) ease; backdrop-filter:blur(0px); }
+@keyframes overlayFade{ from{ background:rgba(4,6,12,0); backdrop-filter:blur(0); } to{ background:rgba(4,6,12,0.65); backdrop-filter:blur(2px); } }
+.modal{ animation:modalIn var(--motion-normal) var(--spring); position:relative; }
+.modal::before{ content:""; position:absolute; top:0; left:14%; right:14%; height:1px; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.35),transparent); }
+@keyframes modalIn{ from{ transform:translateY(40px) scale(0.97); opacity:0; } to{ transform:translateY(0) scale(1); opacity:1; } }
+
+/* --- Achievement full-screen unlock --- */
+.ach-unlock-overlay{
+  position:fixed; inset:0; z-index:95; display:flex; align-items:center; justify-content:center;
+  background:rgba(4,6,12,0.8); animation:overlayFade var(--motion-normal) ease;
+}
+.ach-unlock-card{ text-align:center; padding:30px; }
+.ach-unlock-ring{ position:relative; width:150px; height:150px; margin:0 auto 14px; display:flex; align-items:center; justify-content:center; }
+.ach-unlock-ring::before{
+  content:""; position:absolute; inset:0; border-radius:50%; border:2px solid var(--gold);
+  animation:achRingExpand 1s var(--spring);
+}
+@keyframes achRingExpand{ from{ transform:scale(0.4); opacity:0; } to{ transform:scale(1); opacity:1; } }
+.ach-unlock-badge{ font-size:64px; animation:achBadgeSpring 0.6s var(--spring); filter:drop-shadow(0 0 20px rgba(242,184,75,0.7)); }
+@keyframes achBadgeSpring{ 0%{ transform:scale(0); } 60%{ transform:scale(1.25); } 100%{ transform:scale(1); } }
+.ach-unlock-title{ font-weight:800; letter-spacing:1.5px; font-size:13px; color:var(--gold); margin:6px 0 2px; }
+.ach-unlock-name{ font-size:20px; font-weight:800; margin:0 0 4px; }
+.ach-unlock-xp{ color:var(--accent-2); font-weight:700; font-size:13px; margin-bottom:16px; }
+
+/* --- Urge timer ring --- */
+.urge-timer-ring{ position:relative; width:150px; height:150px; margin:0 auto 8px; }
+.urge-timer-ring svg{ width:150px; height:150px; transform:rotate(-90deg); }
+.urge-timer-ring .ring-bg{ stroke:rgba(255,255,255,0.1); }
+.urge-timer-ring .ring-fg{ stroke:var(--accent-2); stroke-linecap:round; transition:stroke-dashoffset 1s linear; filter:drop-shadow(0 0 6px rgba(63,214,200,0.6)); }
+.urge-timer-ring .timer-center{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; }
+.urge-timer-ring.pulse{ animation:timerPulse 0.5s var(--spring); }
+@keyframes timerPulse{ 0%{ transform:scale(1); } 50%{ transform:scale(1.08); } 100%{ transform:scale(1); } }
+
+/* --- Streak freeze icy --- */
+.freeze-btn.icing{ animation:iceFrost 0.6s ease; background:rgba(63,214,200,0.18) !important; }
+@keyframes iceFrost{ 0%{ filter:brightness(1); } 50%{ filter:brightness(1.4); } 100%{ filter:brightness(1); } }
+.cal-day.frozen.just-frozen{ animation:frostPop 0.6s var(--spring); }
+@keyframes frostPop{ 0%{ transform:scale(1); } 40%{ transform:scale(1.2); box-shadow:0 0 18px rgba(63,214,200,0.6);} 100%{ transform:scale(1); } }
+
+/* --- Breathing overlay enhancement --- */
+.breathing-circle{ position:relative; }
+.breathing-circle::before, .breathing-circle::after{
+  content:""; position:absolute; inset:-16px; border-radius:50%; border:1px solid rgba(124,92,255,0.3);
+  animation:breatheRing 8s ease-in-out infinite;
+}
+.breathing-circle::after{ inset:-32px; opacity:0.6; animation-delay:0.4s; }
+@keyframes breatheRing{ 0%,100%{ transform:scale(0.85); opacity:0.2;} 50%{ transform:scale(1.1); opacity:0.55;} }
+
+/* --- Toggle glow --- */
+input:checked + .slider{ box-shadow:0 0 10px rgba(124,92,255,0.5); }
+.slider::before{ transition:transform 0.3s var(--spring); }
+
+/* --- Close / icon micro --- */
+.close-btn{ transition:transform var(--motion-fast) var(--spring); }
+.close-btn:active{ transform:rotate(90deg) scale(0.9); }
+.icon-btn:active{ transform:scale(0.9); }
+
+/* --- First-load welcome sequence --- */
+.welcome-overlay{ background:radial-gradient(circle at 50% 35%, #1a1440, #05060d 78%); z-index:98; }
+.welcome-card{ position:relative; text-align:center; padding:20px; animation:welcomeIn 0.9s var(--spring); }
+@keyframes welcomeIn{ from{ opacity:0; transform:scale(0.9); } to{ opacity:1; transform:scale(1); } }
+.welcome-brand{ font-size:34px; font-weight:800; letter-spacing:1px; margin-bottom:14px; filter:drop-shadow(0 0 18px rgba(124,92,255,0.5)); }
+.welcome-tagline{ color:var(--ink-dim); font-size:15px; line-height:1.6; margin-bottom:30px; animation:fadeIn 1s ease 0.2s both; }
+.welcome-particles{ position:absolute; inset:-40px; pointer-events:none; }
+.welcome-particles span{
+  position:absolute; width:4px; height:4px; border-radius:50%; background:var(--accent-2);
+  animation:welcomeParticle 2.4s ease-out infinite;
+}
+.welcome-particles span:nth-child(1){ left:10%; top:80%; animation-delay:0s; }
+.welcome-particles span:nth-child(2){ left:30%; top:90%; animation-delay:0.3s; }
+.welcome-particles span:nth-child(3){ left:50%; top:85%; animation-delay:0.6s; }
+.welcome-particles span:nth-child(4){ left:70%; top:92%; animation-delay:0.9s; }
+.welcome-particles span:nth-child(5){ left:85%; top:78%; animation-delay:0.2s; }
+.welcome-particles span:nth-child(6){ left:20%; top:70%; animation-delay:1.1s; }
+@keyframes welcomeParticle{ 0%{ transform:translateY(0); opacity:0; } 20%{ opacity:0.8; } 100%{ transform:translateY(-160px); opacity:0; } }
+
+/* --- Daily return banner --- */
+.daily-return-overlay{ background:rgba(5,6,13,0.92); z-index:97; }
+.daily-return-card{ text-align:center; animation:dailyReturnIn 1.6s var(--spring) forwards; }
+@keyframes dailyReturnIn{ 0%{ opacity:0; transform:scale(0.85); } 15%{ opacity:1; transform:scale(1); } 80%{ opacity:1; transform:scale(1); } 100%{ opacity:0; transform:scale(1.04); } }
+.daily-return-day{ font-size:40px; font-weight:800; letter-spacing:1px; filter:drop-shadow(0 0 16px rgba(124,92,255,0.5)); }
+.daily-return-plus{ margin-top:8px; font-size:15px; font-weight:700; color:var(--gold); }
+
+/* --- Calendar streak connector line --- */
+.chain-line{
+  position:absolute; height:2px; border-radius:2px; background:linear-gradient(90deg, rgba(74,222,128,0.75), rgba(74,222,128,0.35));
+  transform-origin:left center; transform:scaleX(0); animation:chainDraw 0.5s var(--spring) forwards; pointer-events:none; z-index:1;
+}
+@keyframes chainDraw{ to{ transform:scaleX(1); } }
+
+/* --- Festival badge on calendar days --- */
+.cal-day{ overflow:visible; }
+.festival-badge{
+  position:absolute; top:-5px; right:-5px; width:16px; height:16px; border-radius:50%;
+  background:var(--bg-1); border:1px solid rgba(242,184,75,0.6); font-size:10px;
+  display:flex; align-items:center; justify-content:center; z-index:2;
+  box-shadow:0 0 6px rgba(242,184,75,0.5); animation:festivalPop 0.4s var(--spring) both;
+}
+@keyframes festivalPop{ from{ transform:scale(0); } to{ transform:scale(1); } }
+.festival-modal-img{ width:100%; border-radius:14px; margin:6px 0 12px; background:var(--bg-1); min-height:160px; object-fit:cover; display:block; }
+.festival-modal-name{ font-size:18px; font-weight:800; margin:0 0 2px; }
+.festival-modal-date{ color:var(--ink-dim); font-size:12.5px; margin-bottom:10px; }
+.festival-img-loading{ display:flex; align-items:center; justify-content:center; height:160px; color:var(--ink-dim); font-size:12.5px; background:var(--bg-1); border-radius:14px; margin:6px 0 12px; }
+
+/* =========================================================
+   MUSIC SYSTEM
+========================================================= */
+.music-search-wrap{ position:relative; margin:4px 0 14px; }
+.music-search-wrap input{
+  width:100%; background:var(--glass); border:1px solid var(--glass-border); border-radius:14px;
+  padding:12px 14px; font-size:13.5px; backdrop-filter:blur(10px);
+}
+.music-categories{ display:flex; gap:8px; overflow-x:auto; padding-bottom:4px; margin-bottom:14px; scrollbar-width:none; }
+.music-categories::-webkit-scrollbar{ display:none; }
+.music-cat-btn{
+  flex:0 0 auto; background:var(--glass); border:1px solid var(--glass-border); border-radius:14px;
+  padding:9px 14px; font-size:12.5px; font-weight:700; white-space:nowrap; transition:all var(--motion-fast) var(--spring);
+}
+.music-cat-btn.active{ background:linear-gradient(135deg, var(--accent), #4C34D8); border-color:var(--accent); color:#fff; box-shadow:0 4px 16px rgba(124,92,255,0.35); }
+
+.music-error{ text-align:center; padding:20px 12px; color:var(--ink-dim); font-size:13px; }
+.music-error-detail{ font-size:11px; color:var(--danger); opacity:0.85; word-break:break-word; margin-top:4px; }
+.music-error button{ margin-top:10px; }
+
+.music-card-list{ display:flex; flex-direction:column; gap:8px; min-height:4px; }
+.music-card-empty{ text-align:center; color:var(--ink-dim); font-size:12.5px; padding:16px 0; }
+.music-card{
+  display:flex; align-items:center; gap:10px; background:var(--glass); border:1px solid var(--glass-border);
+  border-radius:14px; padding:9px 10px; transition:transform var(--motion-fast) var(--spring), border-color var(--motion-fast) ease;
+}
+.music-card.now-playing{ border-color:rgba(124,92,255,0.55); background:rgba(124,92,255,0.08); }
+.music-card-art{ width:46px; height:46px; border-radius:10px; object-fit:cover; flex:0 0 auto; background:var(--bg-1); }
+.music-card-info{ flex:1; min-width:0; }
+.music-card-title{ font-size:12.5px; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.music-card-artist{ font-size:11px; color:var(--ink-dim); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.music-card-license{ font-size:9.5px; color:var(--ink-dim); opacity:0.7; margin-top:1px; }
+.music-card-license a{ color:inherit; }
+.music-card-dur{ font-size:10.5px; color:var(--ink-dim); flex:0 0 auto; }
+.music-card-fav, .music-card-play{
+  flex:0 0 auto; width:32px; height:32px; border-radius:50%; background:var(--glass); border:1px solid var(--glass-border);
+  display:flex; align-items:center; justify-content:center; font-size:14px; transition:transform var(--motion-fast) var(--spring);
+}
+.music-card-fav.active{ color:var(--danger); border-color:rgba(255,107,107,0.4); animation:favPop 0.4s var(--spring); }
+@keyframes favPop{ 0%{ transform:scale(0.7); } 50%{ transform:scale(1.25); } 100%{ transform:scale(1); } }
+.music-card-play{ background:var(--accent); border-color:var(--accent); color:#fff; }
+
+/* Skeleton loading cards */
+.music-skeleton{ display:flex; align-items:center; gap:10px; background:var(--glass); border:1px solid var(--glass-border); border-radius:14px; padding:9px 10px; }
+.music-skeleton-art, .music-skeleton-line{
+  background:linear-gradient(90deg, var(--glass-border) 25%, rgba(255,255,255,0.12) 37%, var(--glass-border) 63%);
+  background-size:400% 100%; animation:skeletonShimmer 1.4s ease infinite; border-radius:8px;
+}
+.music-skeleton-art{ width:46px; height:46px; border-radius:10px; flex:0 0 auto; }
+.music-skeleton-lines{ flex:1; display:flex; flex-direction:column; gap:6px; }
+.music-skeleton-line{ height:9px; width:70%; }
+.music-skeleton-line.short{ width:40%; }
+@keyframes skeletonShimmer{ 0%{ background-position:100% 0; } 100%{ background-position:0 0; } }
+.music-fade-out{ animation:musicFadeOut 0.25s ease forwards; }
+.music-fade-in{ animation:musicFadeIn 0.3s ease forwards; }
+@keyframes musicFadeOut{ to{ opacity:0; transform:translateY(4px); } }
+@keyframes musicFadeIn{ from{ opacity:0; transform:translateY(4px);} to{ opacity:1; transform:translateY(0); } }
+
+/* --- Mini player --- */
+.mini-player{
+  position:fixed; left:0; right:0; max-width:480px; margin:0 auto;
+  bottom:calc(64px + env(safe-area-inset-bottom)); z-index:19; padding:0 10px;
+  transform:translateY(0); transition:transform var(--motion-normal) var(--spring);
+}
+.mini-player.hidden{ transform:translateY(140%); pointer-events:none; }
+.mini-player-inner{
+  display:flex; align-items:center; gap:10px; background:rgba(18,22,38,0.92); backdrop-filter:blur(18px);
+  border:1px solid var(--glass-border); border-radius:16px; padding:8px 10px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.4), 0 0 0 rgba(124,92,255,0);
+  transition:box-shadow var(--motion-normal) ease;
+}
+[data-theme="light"] .mini-player-inner{ background:rgba(255,255,255,0.92); }
+.mini-player-inner.glow{ box-shadow:0 10px 30px rgba(0,0,0,0.4), 0 0 22px rgba(124,92,255,0.35); }
+.mini-art{ width:38px; height:38px; border-radius:10px; object-fit:cover; background:var(--bg-1); flex:0 0 auto; }
+.mini-art.spin{ animation:miniArtSpin 6s linear infinite; }
+@keyframes miniArtSpin{ from{ transform:rotate(0deg); } to{ transform:rotate(360deg); } }
+.mini-info{ flex:1; min-width:0; }
+.mini-title{ font-size:12px; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.mini-artist{ font-size:10.5px; color:var(--ink-dim); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.mini-btn{ background:none; border:none; font-size:18px; flex:0 0 auto; width:30px; height:30px; display:flex; align-items:center; justify-content:center; }
+.mini-progress{ height:2px; background:var(--glass-border); border-radius:2px; overflow:hidden; margin-top:6px; }
+.mini-progress-fill{ height:100%; background:var(--accent); width:0%; transition:width 0.25s linear; }
+
+/* --- Equalizer bars --- */
+.eq-bars{ display:flex; align-items:flex-end; gap:2px; height:14px; }
+.eq-bars span{ width:3px; background:var(--accent-2); border-radius:2px; height:20%; }
+.eq-bars.playing span{ animation:eqBounce 0.9s ease-in-out infinite; }
+.eq-bars span:nth-child(1){ animation-delay:0s; }
+.eq-bars span:nth-child(2){ animation-delay:0.15s; }
+.eq-bars span:nth-child(3){ animation-delay:0.3s; }
+.eq-bars span:nth-child(4){ animation-delay:0.1s; }
+.eq-bars span:nth-child(5){ animation-delay:0.25s; }
+@keyframes eqBounce{ 0%,100%{ height:20%; } 50%{ height:100%; } }
+
+/* --- Full screen player --- */
+.full-player-overlay{ z-index:70; background:#05060d; flex-direction:column; padding:0; align-items:stretch; }
+.full-player-bg{
+  position:absolute; inset:0; background-size:cover; background-position:center;
+  filter:blur(46px) brightness(0.5) saturate(1.3); transform:scale(1.2); transition:background-image 0.5s ease; opacity:0.7;
+}
+.full-player-particles{ position:absolute; inset:0; pointer-events:none; overflow:hidden; }
+.full-player-particles span{
+  position:absolute; width:3px; height:3px; border-radius:50%; background:rgba(255,255,255,0.5);
+  bottom:-10px; animation:fpParticle linear infinite;
+}
+@keyframes fpParticle{ from{ transform:translateY(0); opacity:0.6; } to{ transform:translateY(-100vh); opacity:0; } }
+.full-player-content{
+  position:relative; z-index:1; flex:1; display:flex; flex-direction:column;
+  padding:16px 22px calc(24px + env(safe-area-inset-bottom)); max-width:480px; margin:0 auto; width:100%;
+}
+.full-player-top{ display:flex; align-items:center; justify-content:space-between; padding-top:6px; }
+.full-player-cat{ font-size:11px; letter-spacing:1.5px; color:var(--ink-dim); text-transform:uppercase; }
+.full-art-wrap{ position:relative; margin:26px auto 0; width:min(70vw,270px); height:min(70vw,270px); display:flex; align-items:center; justify-content:center; }
+.full-art{
+  width:100%; height:100%; border-radius:20px; object-fit:cover; background:var(--bg-1);
+  box-shadow:0 20px 60px rgba(0,0,0,0.55); transition:opacity 0.3s ease, transform 0.3s ease;
+}
+.full-art.spin{ animation:fullArtFloat 5s ease-in-out infinite; }
+@keyframes fullArtFloat{ 0%,100%{ transform:translateY(0) rotate(0deg); } 50%{ transform:translateY(-8px) rotate(0.6deg); } }
+.full-equalizer{ position:absolute; bottom:-16px; right:-6px; display:flex; align-items:flex-end; gap:3px; height:22px; background:rgba(8,11,20,0.75); padding:5px 7px; border-radius:10px; backdrop-filter:blur(6px); }
+.full-equalizer span{ width:4px; background:var(--accent-2); border-radius:2px; height:20%; }
+.full-equalizer.playing span{ animation:eqBounce 0.9s ease-in-out infinite; }
+.full-equalizer span:nth-child(1){ animation-delay:0s; } .full-equalizer span:nth-child(2){ animation-delay:0.15s; }
+.full-equalizer span:nth-child(3){ animation-delay:0.3s; } .full-equalizer span:nth-child(4){ animation-delay:0.1s; } .full-equalizer span:nth-child(5){ animation-delay:0.25s; }
+.full-title{ text-align:center; font-size:19px; font-weight:800; margin-top:22px; }
+.full-artist{ text-align:center; font-size:13px; color:var(--ink-dim); margin-top:4px; }
+.full-progress-wrap{ margin-top:24px; }
+.full-progress-slider{ width:100%; accent-color:var(--accent); }
+.full-time-row{ display:flex; justify-content:space-between; font-size:10.5px; color:var(--ink-dim); margin-top:2px; }
+.full-controls{ display:flex; align-items:center; justify-content:space-between; margin-top:18px; padding:0 6px; }
+.full-ctrl-btn{ background:none; border:none; font-size:22px; color:var(--ink); width:44px; height:44px; }
+.full-ctrl-btn.active{ color:var(--accent-2); }
+.full-ctrl-btn.big{
+  width:66px; height:66px; border-radius:50%; background:linear-gradient(135deg, var(--accent), #4C34D8);
+  font-size:24px; box-shadow:0 8px 26px rgba(124,92,255,0.4); color:#fff;
+}
+.full-volume-row{ display:flex; align-items:center; gap:10px; margin-top:20px; font-size:14px; }
+.full-volume-slider{ flex:1; accent-color:var(--accent-2); }
+.full-license{ text-align:center; font-size:10.5px; color:var(--ink-dim); margin-top:16px; opacity:0.75; }
+.full-license a{ color:inherit; }
+@media (prefers-reduced-motion: reduce){
+  .mini-art.spin, .full-art.spin, .eq-bars.playing span, .full-equalizer.playing span, .full-player-particles span, .music-skeleton-art, .music-skeleton-line{ animation:none !important; }
+}
+</style>
+</head>
+<body>
+
+<div id="ambientBg" aria-hidden="true">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+</div>
+<canvas id="particles"></canvas>
+
+<!-- PIN LOCK OVERLAY -->
+<div id="pinOverlay" class="overlay hidden">
+  <div class="pin-card glass">
+    <h2 id="pinTitle">Enter PIN</h2>
+    <div class="pin-dots" id="pinDots"></div>
+    <div class="pin-pad">
+      <button data-k="1">1</button><button data-k="2">2</button><button data-k="3">3</button>
+      <button data-k="4">4</button><button data-k="5">5</button><button data-k="6">6</button>
+      <button data-k="7">7</button><button data-k="8">8</button><button data-k="9">9</button>
+      <button data-k="clear">C</button><button data-k="0">0</button><button data-k="del">⌫</button>
+    </div>
+    <p class="pin-error" id="pinError"></p>
+  </div>
+</div>
+
+<div id="app" class="app hidden">
+
+  <header class="topbar">
+    <div class="brand">RESET <span class="accent">30</span></div>
+    <button id="privacyToggleBtn" class="icon-btn" title="Privacy mode">🕶️</button>
+  </header>
+
+  <main id="views">
+
+    <!-- HOME -->
+    <section id="view-home" class="view active">
+      <div class="hero glass">
+        <p class="hero-tagline">Build control. Build consistency. Build yourself.</p>
+        <div class="ring-wrap">
+          <div class="ring-halo"></div>
+          <svg class="progress-ring" viewBox="0 0 200 200">
+            <circle class="ring-bg" cx="100" cy="100" r="86"></circle>
+            <circle class="ring-fg" id="ringFg" cx="100" cy="100" r="86"></circle>
+          </svg>
+          <div class="ring-center">
+            <div class="flame-wrap"><div class="flame flame-2">🔥</div><div class="flame">🔥</div></div>
+            <div class="streak-num" id="streakNum">0</div>
+            <div class="streak-word">DAYS</div>
+          </div>
+          <div id="ringFxLayer"></div>
+        </div>
+        <p class="keep-going" id="keepGoing">Keep going.</p>
+        <p class="quote" id="dailyQuote"></p>
+        <p class="cal-tap-hint" id="nextMilestoneBanner" style="margin-top:8px;"></p>
+      </div>
+
+      <div class="stat-row">
+        <div class="stat-chip glass rippleable"><b id="bestStreakVal">0</b><span>Best streak</span></div>
+        <div class="stat-chip glass rippleable"><b id="totalDaysVal">0</b><span>Total days</span></div>
+        <div class="stat-chip glass rippleable"><b id="xpVal">0</b><span>XP</span></div>
+      </div>
+
+      <button id="achievementsBtn" class="link-row rippleable">🏅 View achievements <span id="badgeCountLabel">(0/7)</span></button>
+
+      <div class="section-block">
+        <div class="section-head">
+          <h3>Challenge</h3>
+        </div>
+        <div class="challenge-pills" id="challengePills">
+          <button data-len="7">7d</button>
+          <button data-len="14">14d</button>
+          <button data-len="30">30d</button>
+          <button data-len="60">60d</button>
+          <button data-len="90">90d</button>
+        </div>
+      </div>
+
+      <div class="section-block">
+        <div class="section-head"><h3>Today's mission</h3></div>
+        <div id="missionListHome" class="mission-list"></div>
+      </div>
+
+      <button id="urgeBtn" class="urge-btn rippleable">I'M HAVING AN URGE</button>
+
+      <div class="row-2">
+        <button id="checkinBtn" class="secondary-btn rippleable">Daily check-in</button>
+        <button id="resetBtn" class="secondary-btn danger-outline rippleable">Reset today</button>
+      </div>
+      <button id="freezeBtn" class="secondary-btn freeze-btn rippleable">❄️ Use a streak freeze <span id="freezeCountLabel">(2 left this month)</span></button>
+      <button id="shareBtn" class="secondary-btn rippleable">📤 Share my progress</button>
+    </section>
+
+    <!-- CALENDAR -->
+    <section id="view-calendar" class="view">
+      <div class="section-head">
+        <button id="calPrev" class="icon-btn rippleable">‹</button>
+        <h2 id="calTitle">Month</h2>
+        <button id="calNext" class="icon-btn rippleable">›</button>
+      </div>
+      <div class="cal-legend">
+        <span><i class="dot completed"></i>Completed</span>
+        <span><i class="dot strong"></i>Strong</span>
+        <span><i class="dot frozen"></i>Frozen</span>
+        <span><i class="dot reset"></i>Reset</span>
+        <span><i class="dot upcoming"></i>Upcoming</span>
+        <span>🎉 Festival</span>
+      </div>
+      <div class="cal-grid" id="calGrid"></div>
+      <p class="cal-tap-hint">Tap a day to mark it done and build your streak · hold for details</p>
+      <button id="journalBtn" class="secondary-btn rippleable" style="margin-top:16px;">📓 Open journal timeline</button>
+    </section>
+
+    <!-- PROGRESS -->
+    <section id="view-progress" class="view">
+      <h2>Your progress</h2>
+      <div class="glass score-card">
+        <div class="score-ring-wrap">
+          <svg class="progress-ring small" viewBox="0 0 200 200">
+            <circle class="ring-bg" cx="100" cy="100" r="86"></circle>
+            <circle class="ring-fg" id="scoreRingFg" cx="100" cy="100" r="86"></circle>
+          </svg>
+          <div class="ring-center">
+            <div class="streak-num" id="consistencyScore">0</div>
+            <div class="streak-word">SCORE</div>
+          </div>
+        </div>
+      </div>
+      <div class="progress-grid">
+        <div class="stat-chip glass"><b id="pCurrent">0</b><span>Current streak</span></div>
+        <div class="stat-chip glass"><b id="pLongest">0</b><span>Longest streak</span></div>
+        <div class="stat-chip glass"><b id="pSuccess">0</b><span>Successful days</span></div>
+        <div class="stat-chip glass"><b id="pCompletion">0%</b><span>Challenge %</span></div>
+        <div class="stat-chip glass"><b id="pWeekly">0%</b><span>Weekly consistency</span></div>
+        <div class="stat-chip glass"><b id="pMonthly">0%</b><span>Monthly consistency</span></div>
+        <div class="stat-chip glass"><b id="pUrges">0</b><span>Urges handled</span></div>
+        <div class="stat-chip glass"><b id="pAvgUrge">0</b><span>Avg urge intensity</span></div>
+      </div>
+      <div class="section-block">
+        <div class="section-head"><h3>Last 14 days</h3></div>
+        <svg id="barChart" class="bar-chart" viewBox="0 0 280 100"></svg>
+      </div>
+      <div class="section-block">
+        <div class="section-head"><h3>Mood trend</h3></div>
+        <div id="moodTrend" style="display:flex;justify-content:space-between;gap:2px;"></div>
+      </div>
+      <div class="section-block">
+        <div class="section-head"><h3>Insights</h3></div>
+        <div id="insightsList" class="insights-list"></div>
+      </div>
+    </section>
+
+    <!-- MISSIONS -->
+    <section id="view-missions" class="view">
+      <h2>Today's missions</h2>
+      <button id="focusMusicBtn" class="urge-btn small rippleable" style="margin-bottom:14px;">🎧 Start focus music</button>
+      <div id="missionList" class="mission-list"></div>
+    </section>
+
+    <!-- MUSIC -->
+    <section id="view-music" class="view">
+      <h2>🎧 Focus Music</h2>
+      <div class="music-search-wrap">
+        <input type="text" id="musicSearchInput" placeholder="Search music...">
+      </div>
+      <div class="music-categories" id="musicCategories">
+        <button class="music-cat-btn active" data-cat="focus">🎯 Focus</button>
+        <button class="music-cat-btn" data-cat="calm">🧘 Calm</button>
+        <button class="music-cat-btn" data-cat="sleep">🌙 Sleep</button>
+        <button class="music-cat-btn" data-cat="workout">💪 Workout</button>
+        <button class="music-cat-btn" data-cat="motivation">🔥 Motivation</button>
+        <button class="music-cat-btn" data-cat="instrumental">🎹 Instrumental</button>
+      </div>
+
+      <div id="musicError" class="music-error hidden">
+        <p>Music service temporarily unavailable.</p>
+        <p id="musicErrorDetail" class="music-error-detail"></p>
+        <button id="musicRetryBtn" class="secondary-btn rippleable">Retry</button>
+      </div>
+
+      <div id="musicSearchResultsBlock" class="section-block hidden">
+        <div class="section-head"><h3>Search results</h3></div>
+        <div id="musicSearchList" class="music-card-list"></div>
+      </div>
+
+      <div id="musicCategoryBlock" class="section-block">
+        <div class="section-head"><h3 id="musicListTitle">Focus</h3></div>
+        <div id="musicCardList" class="music-card-list"></div>
+      </div>
+
+      <div class="section-block">
+        <div class="section-head"><h3>❤️ My Favorites</h3></div>
+        <div id="musicFavList" class="music-card-list"><p class="music-card-empty">No favorites yet.</p></div>
+      </div>
+
+      <div class="section-block">
+        <div class="section-head"><h3>🕘 Recently Played</h3></div>
+        <div id="musicRecentList" class="music-card-list"><p class="music-card-empty">Nothing played yet.</p></div>
+      </div>
+    </section>
+
+    <!-- SETTINGS -->
+    <section id="view-settings" class="view">
+      <h2>Settings</h2>
+
+      <div class="settings-block glass">
+        <div class="settings-row">
+          <span>Theme</span>
+          <select id="themeSelect"><option value="dark">Dark</option><option value="light">Light</option></select>
+        </div>
+        <div class="settings-row">
+          <span>Sound effects</span>
+          <label class="switch"><input type="checkbox" id="soundToggle"><span class="slider"></span></label>
+        </div>
+        <div class="settings-row">
+          <span>Haptic feedback</span>
+          <label class="switch"><input type="checkbox" id="hapticToggle"><span class="slider"></span></label>
+        </div>
+        <div class="settings-row">
+          <span>Motivational quotes</span>
+          <label class="switch"><input type="checkbox" id="quotesToggle"><span class="slider"></span></label>
+        </div>
+        <div class="settings-row">
+          <span>Daily reminder</span>
+          <input type="time" id="reminderTime">
+        </div>
+        <div class="settings-row" id="notifPermRow">
+          <span id="notifPermLabel">Enable browser notification</span>
+          <button id="notifPermBtn" class="secondary-btn rippleable" style="flex:0 0 auto;padding:8px 14px;">Allow</button>
+        </div>
+      </div>
+
+      <div class="settings-block glass">
+        <div class="settings-row">
+          <span>PIN lock</span>
+          <label class="switch"><input type="checkbox" id="pinToggle"><span class="slider"></span></label>
+        </div>
+      </div>
+
+      <div class="settings-block glass">
+        <p class="privacy-note">Your data stays on this device only. Nothing is sent to a server unless you export it yourself.</p>
+        <button id="exportBtn" class="secondary-btn">Export data</button>
+        <label class="secondary-btn file-label">Import data<input type="file" id="importInput" accept="application/json" hidden></label>
+        <button id="clearHistoryBtn" class="secondary-btn danger-outline">Clear history</button>
+        <button id="deleteAllBtn" class="secondary-btn danger-solid">Delete all data</button>
+      </div>
+    </section>
+
+  </main>
+
+  <div id="miniPlayer" class="mini-player hidden">
+    <div class="mini-player-inner rippleable" id="miniPlayerTap">
+      <img id="miniArt" class="mini-art" src="" alt="">
+      <div class="mini-info">
+        <div class="mini-title" id="miniTitle">—</div>
+        <div class="mini-artist" id="miniArtist">—</div>
+      </div>
+      <div class="eq-bars" id="miniEq"><span></span><span></span><span></span><span></span><span></span></div>
+      <button id="miniPlayPauseBtn" class="mini-btn">▶</button>
+      <button id="miniExpandBtn" class="mini-btn">⌃</button>
+    </div>
+    <div class="mini-progress"><div class="mini-progress-fill" id="miniProgressFill"></div></div>
+  </div>
+
+  <nav class="bottom-nav">
+    <div class="nav-indicator" id="navIndicator"></div>
+    <button class="nav-btn active" data-view="home"><span>🏠</span>Home</button>
+    <button class="nav-btn" data-view="calendar"><span>📅</span>Calendar</button>
+    <button class="nav-btn" data-view="progress"><span>📈</span>Progress</button>
+    <button class="nav-btn" data-view="missions"><span>✅</span>Missions</button>
+    <button class="nav-btn" data-view="music"><span>🎵</span>Music</button>
+    <button class="nav-btn" data-view="settings"><span>⚙️</span>Settings</button>
+  </nav>
+</div>
+
+<!-- DAY DETAIL MODAL -->
+<div id="dayModal" class="modal-overlay hidden">
+  <div class="modal glass">
+    <div class="modal-head"><h3 id="dayModalDate">Date</h3><button class="close-btn" data-close="dayModal">×</button></div>
+    <label>Status</label>
+    <select id="dayStatus">
+      <option value="upcoming">Upcoming</option>
+      <option value="completed">Completed</option>
+      <option value="strong">Strong day</option>
+      <option value="urge_handled">Urge handled</option>
+      <option value="frozen">Frozen (streak freeze)</option>
+      <option value="reset">Reset</option>
+    </select>
+    <label>Mood</label>
+    <select id="dayMood"><option>😃</option><option>🙂</option><option>😐</option><option>😔</option><option>😣</option></select>
+    <label>Urge intensity: <span id="dayUrgeVal">0</span>/10</label>
+    <input type="range" id="dayUrge" min="0" max="10" value="0">
+    <label>Trigger</label>
+    <input type="text" id="dayTrigger" maxlength="80" placeholder="What triggered it?">
+    <label>What helped?</label>
+    <input type="text" id="dayHelped" maxlength="80" placeholder="What helped you?">
+    <label>Note</label>
+    <textarea id="dayNote" maxlength="300" placeholder="Personal note..."></textarea>
+    <button id="dayModalSave" class="urge-btn small">Save</button>
+  </div>
+</div>
+
+<!-- CHECK-IN MODAL -->
+<div id="checkinModal" class="modal-overlay hidden">
+  <div class="modal glass">
+    <div class="modal-head"><h3>Daily check-in</h3><button class="close-btn" data-close="checkinModal">×</button></div>
+    <label>Mood today</label>
+    <select id="ciMood"><option>😃</option><option>🙂</option><option>😐</option><option>😔</option><option>😣</option></select>
+    <label>Energy: <span id="ciEnergyVal">5</span>/10</label>
+    <input type="range" id="ciEnergy" min="0" max="10" value="5">
+    <label>Urge level: <span id="ciUrgeVal">0</span>/10</label>
+    <input type="range" id="ciUrge" min="0" max="10" value="0">
+    <label><input type="checkbox" id="ciMission"> Completed today's mission</label>
+    <label>What are you proud of today?</label>
+    <textarea id="ciProud" maxlength="300" placeholder="Write a line..."></textarea>
+    <button id="checkinSave" class="urge-btn small">Save check-in</button>
+  </div>
+</div>
+
+<!-- RESET FLOW MODAL -->
+<div id="resetModal" class="modal-overlay hidden">
+  <div class="modal glass" id="resetModalInner">
+    <div class="modal-head"><h3>Reset today</h3><button class="close-btn" data-close="resetModal">×</button></div>
+    <div id="resetStep1">
+      <label>What happened?</label>
+      <div class="option-grid" id="resetReasons">
+        <button data-r="Stress">Stress</button>
+        <button data-r="Boredom">Boredom</button>
+        <button data-r="Loneliness">Loneliness</button>
+        <button data-r="Triggering content">Triggering content</button>
+        <button data-r="Lack of sleep">Lack of sleep</button>
+        <button data-r="Habit/routine">Habit/routine</button>
+        <button data-r="Other">Other</button>
+      </div>
+    </div>
+    <div id="resetStep2" class="hidden">
+      <label>What can you change next time?</label>
+      <textarea id="resetChangeNote" maxlength="300" placeholder="One small change..."></textarea>
+      <button id="resetConfirmBtn" class="urge-btn small">Confirm reset</button>
+    </div>
+    <div id="resetStep3" class="hidden reset-message">
+      <p>One setback doesn't erase your progress.</p>
+      <p class="accent-text">Your next decision starts a new streak.</p>
+      <button id="resetDoneBtn" class="urge-btn small">Continue</button>
+    </div>
+  </div>
+</div>
+
+<!-- URGE EMERGENCY OVERLAY -->
+<div id="urgeOverlay" class="overlay urge-overlay hidden">
+  <div id="urgeStep1" class="urge-step">
+    <div class="breathing-circle" id="breathCircle"><span id="breathText">Inhale</span></div>
+    <p class="urge-sub">Follow the circle. You're safe. This will pass.</p>
+    <button id="urgeToStep2" class="urge-btn small">I'm ready, continue</button>
+  </div>
+
+  <div id="urgeStep2" class="urge-step hidden">
+    <h3>Ride the wave</h3>
+    <div class="urge-timer-ring" id="urgeTimerRing">
+      <svg viewBox="0 0 150 150">
+        <circle class="ring-bg" cx="75" cy="75" r="66" fill="none" stroke-width="9"></circle>
+        <circle class="ring-fg" id="urgeRingFg" cx="75" cy="75" r="66" fill="none" stroke-width="9"></circle>
+      </svg>
+      <div class="timer-center"><span id="urgeTimer">5:00</span></div>
+    </div>
+    <div class="option-grid">
+      <button data-q="Take a short walk">🚶 Short walk</button>
+      <button data-q="Drink water">💧 Drink water</button>
+      <button data-q="Leave the environment">🚪 Leave the room</button>
+      <button data-q="Do a short exercise">🏋️ Quick exercise</button>
+      <button data-q="Put the phone away">📵 Phone away</button>
+      <button data-q="Start a 5-min task">🧩 5-min task</button>
+    </div>
+    <button id="urgeMusicBtn" class="secondary-btn rippleable">🎧 Play calm music</button>
+    <button id="urgeToStep3" class="secondary-btn">I've handled it</button>
+  </div>
+
+  <div id="urgeStep3" class="urge-step hidden">
+    <h3>How strong is the urge now?</h3>
+    <input type="range" id="urgeAfterSlider" min="0" max="10" value="5">
+    <div class="timer-display" id="urgeAfterVal">5</div>
+    <button id="urgeFinishBtn" class="urge-btn small">Done</button>
+  </div>
+
+  <div id="urgeStep4" class="urge-step hidden">
+    <div class="badge-burst">🎉</div>
+    <h3 id="urgeResultMsg">Nice. You rode the wave.</h3>
+    <p class="accent-text" id="urgeXpMsg">+15 XP</p>
+    <button id="urgeCloseBtn" class="urge-btn small">Close</button>
+  </div>
+</div>
+
+<!-- FULL SCREEN MUSIC PLAYER -->
+<div id="fullPlayerOverlay" class="overlay full-player-overlay hidden">
+  <div class="full-player-bg" id="fullPlayerBg"></div>
+  <div class="full-player-particles" id="fullPlayerParticles"></div>
+  <div class="full-player-content">
+    <div class="full-player-top">
+      <button id="fullPlayerCloseBtn" class="icon-btn rippleable">⌄</button>
+      <span class="full-player-cat" id="fullPlayerCategory">Focus</span>
+      <button id="fullPlayerFavBtn" class="icon-btn rippleable">♡</button>
+    </div>
+    <div class="full-art-wrap">
+      <img id="fullArt" class="full-art" src="" alt="">
+      <div class="full-equalizer" id="fullEqualizer"><span></span><span></span><span></span><span></span><span></span></div>
+    </div>
+    <div class="full-title" id="fullTitle">—</div>
+    <div class="full-artist" id="fullArtist">—</div>
+    <div class="full-progress-wrap">
+      <input type="range" id="fullProgressSlider" min="0" max="1000" value="0" class="full-progress-slider">
+      <div class="full-time-row"><span id="fullCurrentTime">0:00</span><span id="fullDuration">0:00</span></div>
+    </div>
+    <div class="full-controls">
+      <button id="fullShuffleBtn" class="full-ctrl-btn rippleable" title="Shuffle">🔀</button>
+      <button id="fullPrevBtn" class="full-ctrl-btn rippleable" title="Previous">⏮</button>
+      <button id="fullPlayPauseBtn" class="full-ctrl-btn big rippleable" title="Play/Pause">▶</button>
+      <button id="fullNextBtn" class="full-ctrl-btn rippleable" title="Next">⏭</button>
+      <button id="fullRepeatBtn" class="full-ctrl-btn rippleable" title="Repeat">🔁</button>
+    </div>
+    <div class="full-volume-row">
+      🔊 <input type="range" id="fullVolumeSlider" min="0" max="100" value="80" class="full-volume-slider">
+    </div>
+    <div class="full-license" id="fullLicense"></div>
+  </div>
+</div>
+
+<!-- ACHIEVEMENTS MODAL -->
+<div id="achievementsModal" class="modal-overlay hidden">
+  <div class="modal glass">
+    <div class="modal-head"><h3>Achievements</h3><button class="close-btn" data-close="achievementsModal">×</button></div>
+    <div id="achievementsGrid" class="achievements-grid"></div>
+  </div>
+</div>
+
+<!-- JOURNAL TIMELINE MODAL -->
+<div id="journalModal" class="modal-overlay hidden">
+  <div class="modal glass">
+    <div class="modal-head"><h3>Journal timeline</h3><button class="close-btn" data-close="journalModal">×</button></div>
+    <input type="text" id="journalSearch" placeholder="Search notes, triggers, dates..." style="width:100%;background:var(--bg-1);border:1px solid var(--glass-border);border-radius:10px;padding:10px;font-size:13px;margin-bottom:10px;">
+    <div id="journalList" class="journal-list"></div>
+  </div>
+</div>
+
+<!-- FESTIVAL INFO MODAL -->
+<div id="festivalModal" class="modal-overlay hidden">
+  <div class="modal glass">
+    <div class="modal-head"><h3>Festival</h3><button class="close-btn" data-close="festivalModal">×</button></div>
+    <div id="festivalImgWrap" class="festival-img-loading">Loading photo...</div>
+    <div class="festival-modal-name" id="festivalName">—</div>
+    <div class="festival-modal-date" id="festivalDate">—</div>
+  </div>
+</div>
+
+<!-- WEEKLY REVIEW MODAL -->
+<div id="weeklyReviewModal" class="modal-overlay hidden">
+  <div class="modal glass">
+    <div class="modal-head"><h3>Your week in review</h3><button class="close-btn" data-close="weeklyReviewModal">×</button></div>
+    <div id="weeklyReviewBody" class="weekly-review-body"></div>
+    <button id="weeklyReviewCloseBtn" class="urge-btn small">Got it</button>
+  </div>
+</div>
+
+<!-- SHARE CARD MODAL -->
+<div id="shareModal" class="modal-overlay hidden">
+  <div class="modal glass">
+    <div class="modal-head"><h3>Share your progress</h3><button class="close-btn" data-close="shareModal">×</button></div>
+    <canvas id="shareCanvas" width="360" height="450" class="share-canvas"></canvas>
+    <button id="shareDownloadBtn" class="urge-btn small">Download image</button>
+  </div>
+</div>
+
+<!-- BADGE UNLOCK TOAST -->
+<div id="badgeToast" class="badge-toast hidden">
+  <div class="badge-icon">🏅</div>
+  <div>
+    <div class="badge-title" id="badgeTitle">Milestone unlocked</div>
+    <div class="badge-sub" id="badgeSub">Day 7 — Warrior</div>
+  </div>
+</div>
+
+<div id="achUnlockOverlay" class="ach-unlock-overlay hidden">
+  <div class="ach-unlock-card">
+    <div class="ach-unlock-ring"><div class="ach-unlock-badge">🏅</div></div>
+    <div class="ach-unlock-title">MILESTONE UNLOCKED</div>
+    <div class="ach-unlock-name" id="achUnlockName">Day 7 — Warrior</div>
+    <div class="ach-unlock-xp" id="achUnlockXp">+25 XP</div>
+    <button id="achUnlockCloseBtn" class="urge-btn small rippleable">Continue</button>
+  </div>
+</div>
+
+<div id="welcomeOverlay" class="overlay welcome-overlay hidden">
+  <div class="welcome-card">
+    <div class="welcome-particles"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+    <div class="welcome-brand">RESET <span class="accent">30</span></div>
+    <p class="welcome-tagline">Build control.<br>Build consistency.<br>Build yourself.</p>
+    <button id="welcomeStartBtn" class="urge-btn rippleable">Start your journey</button>
+  </div>
+</div>
+
+<div id="dailyReturnOverlay" class="overlay daily-return-overlay hidden">
+  <div class="daily-return-card">
+    <div class="daily-return-day" id="dailyReturnDay">DAY 1</div>
+    <div class="daily-return-plus" id="dailyReturnPlus">+1 DAY</div>
+  </div>
+</div>
+
+<div id="confettiCanvasWrap"></div>
+
+<script>
+(function(){
+'use strict';
+
+/* ---------------------------------------------------------
+   CONSTANTS
+--------------------------------------------------------- */
+const STORAGE_KEY = 'reset30_state_v1';
+
+const MISSIONS = [
+  {id:'walk', label:'20 minute walk', xp:10},
+  {id:'exercise', label:'Exercise', xp:10},
+  {id:'study', label:'Study session', xp:10},
+  {id:'meditate', label:'Meditation', xp:10},
+  {id:'avoid', label:'Stay away from triggering content', xp:15},
+  {id:'sleep', label:'Sleep on time', xp:10},
+  {id:'outdoors', label:'Spend time outdoors', xp:10},
+  {id:'phonefree', label:'Phone-free period', xp:10},
+  {id:'water', label:'Drink enough water', xp:5},
+];
+
+const MILESTONES = [
+  {day:1, name:'Starter'},
+  {day:3, name:'Control'},
+  {day:7, name:'Warrior'},
+  {day:14, name:'Discipline'},
+  {day:30, name:'Master'},
+  {day:60, name:'Elite'},
+  {day:90, name:'Unstoppable'},
+];
+
+const QUOTES = [
+  "Small decisions, repeated daily, build a different life.",
+  "You're not starting over. You're starting stronger.",
+  "Discomfort now is discipline later.",
+  "Progress isn't a straight line, and that's fine.",
+  "Every urge you ride out makes the next one easier.",
+  "You are building a version of yourself that follows through.",
+  "Consistency beats intensity.",
+  "One good decision can change the direction of your whole day.",
+  "You don't need to be perfect. You need to keep showing up.",
+  "This moment of control is the whole point."
+];
+
+const DOW = ['Su','Mo','Tu','We','Th','Fr','Sa'];
+const MONTH_NAMES = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+/* ---------------------------------------------------------
+   FESTIVALS (major Indian festivals — 2026 verified dates)
+   wiki: Wikipedia page title used to fetch a real reference photo.
+   Note: lunar/regional festivals shift every year — extend this
+   table for future years as needed.
+--------------------------------------------------------- */
+const FESTIVALS = {
+  '2026-01-14': { name:'Makar Sankranti', emoji:'🌾', wiki:'Makar Sankranti' },
+  '2026-01-26': { name:'Republic Day', emoji:'🇮🇳', wiki:'Republic Day (India)' },
+  '2026-02-15': { name:'Maha Shivratri', emoji:'🔱', wiki:'Maha Shivaratri' },
+  '2026-03-03': { name:'Holika Dahan', emoji:'🔥', wiki:'Holika' },
+  '2026-03-04': { name:'Holi', emoji:'🎨', wiki:'Holi' },
+  '2026-08-15': { name:'Independence Day', emoji:'🇮🇳', wiki:'Independence Day (India)' },
+  '2026-08-28': { name:'Raksha Bandhan', emoji:'🎗️', wiki:'Raksha Bandhan' },
+  '2026-09-04': { name:'Janmashtami', emoji:'🦚', wiki:'Krishna Janmashtami' },
+  '2026-09-14': { name:'Ganesh Chaturthi', emoji:'🐘', wiki:'Ganesh Chaturthi' },
+  '2026-10-02': { name:'Gandhi Jayanti', emoji:'🕊️', wiki:'Gandhi Jayanti' },
+  '2026-10-12': { name:'Navratri begins', emoji:'💃', wiki:'Navratri' },
+  '2026-10-20': { name:'Dussehra', emoji:'🏹', wiki:'Dussehra' },
+  '2026-11-06': { name:'Dhanteras', emoji:'🪔', wiki:'Dhanteras' },
+  '2026-11-08': { name:'Diwali', emoji:'🪔', wiki:'Diwali' },
+  '2026-11-11': { name:'Bhai Dooj', emoji:'👫', wiki:'Bhai Dooj' },
+  '2026-11-14': { name:'Chhath Puja', emoji:'🌅', wiki:'Chhath' },
+  '2026-11-24': { name:'Guru Nanak Jayanti', emoji:'🙏', wiki:'Guru Nanak Gurpurab' },
+  '2026-12-25': { name:'Christmas', emoji:'🎄', wiki:'Christmas' }
+};
+
+/* ---------------------------------------------------------
+   STATE
+--------------------------------------------------------- */
+function defaultState(){
+  return {
+    challengeLength: 30,
+    streakStart: todayStr(),
+    bestStreak: 0,
+    history: {},      // dateStr -> {status, mood, urge, trigger, helped, note, energy, proud}
+    missions: {},      // dateStr -> {missionId:true}
+    xp: 0,
+    badges: [],        // array of milestone day numbers unlocked
+    resets: [],        // {date, reason, changeNote, streakAtReset}
+    urgeLog: [],        // {date, before, after}
+    freezesUsed: [],    // dates when a streak freeze was used
+    lastWeeklyReviewWeek: null,
+    seenWelcome: false,
+    lastOpenedDate: null,
+    lastReminderFired: null,
+    settings: { theme:'dark', sound:true, haptic:true, quotes:true, pin:null, reminderTime:'' }
+  };
+}
+
+let state = loadState();
+
+function loadState(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw){
+      const parsed = JSON.parse(raw);
+      return Object.assign(defaultState(), parsed, {
+        settings: Object.assign(defaultState().settings, parsed.settings || {})
+      });
+    }
+  }catch(e){ console.warn('Could not load saved data', e); }
+  return defaultState();
+}
+
+function saveState(){
+  try{
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  }catch(e){ console.warn('Could not save data', e); }
+}
+
+/* ---------------------------------------------------------
+   DATE HELPERS
+--------------------------------------------------------- */
+function todayStr(){
+  const d = new Date();
+  return fmtDate(d);
+}
+function fmtDate(d){
+  return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+}
+function parseDate(s){
+  const [y,m,d] = s.split('-').map(Number);
+  return new Date(y, m-1, d);
+}
+function addDays(str, n){
+  const d = parseDate(str);
+  d.setDate(d.getDate()+n);
+  return fmtDate(d);
+}
+function daysBetweenInclusive(a,b){
+  return Math.round((parseDate(b) - parseDate(a)) / 86400000) + 1;
+}
+function dayOfYear(d){
+  const start = new Date(d.getFullYear(),0,0);
+  return Math.floor((d - start)/86400000);
+}
+
+/* ---------------------------------------------------------
+   COUNT-UP ANIMATION
+--------------------------------------------------------- */
+const countUpCache = {};
+function animateCountUp(el, to, duration){
+  if(!el) return;
+  duration = duration || 700;
+  const key = el.id || Math.random();
+  const from = countUpCache[key] != null ? countUpCache[key] : 0;
+  if(from === to){ el.textContent = to; return; }
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduced){ el.textContent = to; countUpCache[key] = to; return; }
+  const start = performance.now();
+  function tick(now){
+    const p = Math.min(1, (now-start)/duration);
+    const eased = 1 - Math.pow(1-p, 3);
+    const val = Math.round(from + (to-from)*eased);
+    el.textContent = val;
+    if(p < 1) requestAnimationFrame(tick);
+    else countUpCache[key] = to;
+  }
+  requestAnimationFrame(tick);
+}
+
+/* ---------------------------------------------------------
+   RIPPLE EFFECT (event delegation, works for dynamic elements)
+--------------------------------------------------------- */
+document.addEventListener('click', e => {
+  const el = e.target.closest('.rippleable');
+  if(!el) return;
+  const rect = el.getBoundingClientRect();
+  const size = Math.max(rect.width, rect.height);
+  const ripple = document.createElement('span');
+  ripple.className = 'ripple-el';
+  ripple.style.width = ripple.style.height = size + 'px';
+  ripple.style.left = (e.clientX - rect.left - size/2) + 'px';
+  ripple.style.top = (e.clientY - rect.top - size/2) + 'px';
+  el.appendChild(ripple);
+  setTimeout(()=> ripple.remove(), 620);
+});
+
+/* ---------------------------------------------------------
+   ANIMATION ENGINE (WAAPI helpers, reduced-motion aware)
+--------------------------------------------------------- */
+function reducedMotion(){ return window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
+
+function animateButton(el){
+  if(!el || reducedMotion()) return;
+  el.animate([{ transform:'scale(1)' },{ transform:'scale(0.94)' },{ transform:'scale(1)' }],
+    { duration:260, easing:'cubic-bezier(.34,1.56,.64,1)' });
+}
+function animateCard(el){
+  if(!el || reducedMotion()) return;
+  el.animate([{ transform:'scale(1)', boxShadow:'0 0 0 rgba(124,92,255,0)' },
+    { transform:'scale(1.03)', boxShadow:'0 0 18px rgba(124,92,255,0.35)' },
+    { transform:'scale(1)', boxShadow:'0 0 0 rgba(124,92,255,0)' }],
+    { duration:420, easing:'cubic-bezier(.16,1,.3,1)' });
+}
+function animateSuccess(el){
+  if(!el) return;
+  el.classList.remove('just-completed'); void el.offsetWidth;
+  el.classList.add('just-completed');
+  setTimeout(()=> el.classList.remove('just-completed'), 550);
+}
+function animateNumber(el, to, duration){ animateCountUp(el, to, duration); if(el && !reducedMotion()){ el.classList.remove('pulse'); void el.offsetWidth; el.classList.add('pulse'); setTimeout(()=>el.classList.remove('pulse'), 340); } }
+function animateXP(sourceEl, amount){
+  if(!sourceEl) return;
+  const target = document.getElementById('xpVal');
+  const from = sourceEl.getBoundingClientRect();
+  const label = document.createElement('div');
+  label.className = 'xp-float';
+  label.textContent = (amount>=0?'+':'') + amount + ' XP';
+  label.style.left = (from.left + from.width/2) + 'px';
+  label.style.top = from.top + 'px';
+  document.body.appendChild(label);
+  setTimeout(()=> label.remove(), 1000);
+  if(target){ animateNumber(target, state.xp, 500); }
+}
+function animatePageTransition(){ /* handled via CSS classes on .view, see nav handler */ }
+function animateModal(id, opening){ /* handled via CSS keyframes on .modal / .modal-overlay */ }
+function animateCalendarDay(el, kind){
+  if(!el) return;
+  if(kind === 'complete') animateSuccess(el);
+  else if(kind === 'uncomplete'){ el.classList.add('just-uncompleted'); setTimeout(()=>el.classList.remove('just-uncompleted'),420); }
+  else if(kind === 'frozen'){ el.classList.add('just-frozen'); setTimeout(()=>el.classList.remove('just-frozen'),650); }
+  if(kind === 'complete' && !reducedMotion()){
+    const check = document.createElement('div');
+    check.className = 'check-pop';
+    check.textContent = '✓';
+    el.appendChild(check);
+    setTimeout(()=> check.remove(), 520);
+  }
+}
+function animateBadgeUnlock(m){
+  const overlay = document.getElementById('achUnlockOverlay');
+  document.getElementById('achUnlockName').textContent = 'DAY '+m.day+' — '+m.name.toUpperCase();
+  document.getElementById('achUnlockXp').textContent = '+'+(m.day*2)+' XP';
+  overlay.classList.remove('hidden');
+}
+function animateStreak(streakEl, ringWrapEl){
+  if(!ringWrapEl || reducedMotion()) return;
+  streakEl.classList.remove('pulse'); void streakEl.offsetWidth; streakEl.classList.add('pulse');
+  setTimeout(()=> streakEl.classList.remove('pulse'), 340);
+  const burst = document.createElement('div');
+  burst.className = 'glow-burst';
+  ringWrapEl.appendChild(burst);
+  setTimeout(()=> burst.remove(), 950);
+  const fxLayer = document.getElementById('ringFxLayer');
+  if(fxLayer){
+    for(let i=0;i<8;i++){
+      const s = document.createElement('div');
+      s.className = 'spark';
+      const angle = Math.random()*Math.PI*2;
+      s.style.left = (100 + Math.cos(angle)*80) + 'px';
+      s.style.top = (100 + Math.sin(angle)*80) + 'px';
+      s.style.setProperty('--sx', (Math.random()*20-10)+'px');
+      fxLayer.appendChild(s);
+      setTimeout(()=> s.remove(), 1650);
+    }
+    const plus = document.createElement('div');
+    plus.className = 'floating-plusday';
+    plus.textContent = '+1 DAY';
+    fxLayer.appendChild(plus);
+    setTimeout(()=> plus.remove(), 1450);
+  }
+}
+function animateMissionComplete(rowEl, xp){
+  if(!rowEl) return;
+  rowEl.classList.add('just-done');
+  setTimeout(()=> rowEl.classList.remove('just-done'), 460);
+  animateXP(rowEl, xp);
+}
+
+/* ---------------------------------------------------------
+   STREAK / SCORE LOGIC
+--------------------------------------------------------- */
+let lastKnownStreak = null;
+function currentStreak(){
+  const successStatuses = ['completed','strong','urge_handled','frozen'];
+  let streak = 0;
+  let d = todayStr();
+  // walk backward from today while days are successful (explicit or implicit)
+  while(true){
+    const h = state.history[d];
+    if(h){
+      if(successStatuses.includes(h.status)){ streak++; d = addDays(d, -1); continue; }
+      break;
+    }
+    if(d >= state.streakStart && d <= todayStr()){ streak++; d = addDays(d, -1); continue; }
+    break;
+  }
+  return Math.max(0, streak);
+}
+
+function longestStreak(){
+  return Math.max(state.bestStreak, currentStreak());
+}
+
+function successfulDaysCount(){
+  return Object.values(state.history).filter(h => ['completed','strong','urge_handled'].includes(h.status)).length;
+}
+
+function consistencyForRange(days){
+  const today = new Date();
+  let hit = 0;
+  for(let i=0;i<days;i++){
+    const ds = fmtDate(new Date(today.getFullYear(), today.getMonth(), today.getDate()-i));
+    const h = state.history[ds];
+    if(h && ['completed','strong','urge_handled','frozen'].includes(h.status)) hit++;
+    else if(!h && ds >= state.streakStart && ds <= todayStr()) hit++; // implicit success day within current streak
+  }
+  return Math.round((hit/days)*100);
+}
+
+function urgesHandledCount(){
+  return state.urgeLog.length + Object.values(state.history).filter(h=>h.status==='urge_handled').length;
+}
+
+function avgUrgeIntensity(){
+  const vals = [];
+  state.urgeLog.forEach(u => vals.push(u.after));
+  Object.values(state.history).forEach(h => { if(typeof h.urge === 'number') vals.push(h.urge); });
+  if(!vals.length) return 0;
+  return Math.round((vals.reduce((a,b)=>a+b,0)/vals.length)*10)/10;
+}
+
+function consistencyScore(){
+  const weekly = consistencyForRange(7);
+  const monthly = consistencyForRange(30);
+  const completion = Math.min(100, Math.round((currentStreak()/state.challengeLength)*100));
+  return Math.round(weekly*0.4 + monthly*0.3 + completion*0.3);
+}
+
+/* ---------------------------------------------------------
+   BADGES / XP
+--------------------------------------------------------- */
+function addXP(amount){
+  state.xp += amount;
+  saveState();
+  renderHomeStats();
+}
+
+function checkBadges(){
+  const streak = currentStreak();
+  MILESTONES.forEach(m => {
+    if(streak >= m.day && !state.badges.includes(m.day)){
+      state.badges.push(m.day);
+      addXP(m.day*2);
+      saveState();
+      showBadgeToast(m);
+      launchConfetti();
+      animateBadgeUnlock(m);
+      sfx.badge();
+    }
+  });
+}
+
+function showBadgeToast(m){
+  const toast = document.getElementById('badgeToast');
+  document.getElementById('badgeTitle').textContent = 'Milestone unlocked';
+  document.getElementById('badgeSub').textContent = 'Day '+m.day+' — '+m.name;
+  toast.classList.remove('hidden');
+  vibrate(20);
+  setTimeout(()=> toast.classList.add('hidden'), 3200);
+}
+
+function launchConfetti(){
+  const wrap = document.getElementById('confettiCanvasWrap');
+  const colors = ['#7C5CFF','#3FD6C8','#F2B84B','#4ADE80','#FF6B6B'];
+  for(let i=0;i<28;i++){
+    const p = document.createElement('div');
+    const size = 6 + Math.random()*6;
+    p.style.cssText = `position:absolute; top:-10px; left:${Math.random()*100}%; width:${size}px; height:${size}px;
+      background:${colors[Math.floor(Math.random()*colors.length)]}; border-radius:${Math.random()>0.5?'50%':'2px'};
+      opacity:0.95; transform:rotate(${Math.random()*360}deg);`;
+    wrap.appendChild(p);
+    const duration = 1800 + Math.random()*1200;
+    const drift = (Math.random()-0.5)*160;
+    p.animate([
+      { transform:`translate(0,0) rotate(0deg)`, opacity:1 },
+      { transform:`translate(${drift}px, 100vh) rotate(720deg)`, opacity:0 }
+    ], { duration, easing:'cubic-bezier(.2,.6,.4,1)' });
+    setTimeout(()=> p.remove(), duration+50);
+  }
+}
+
+function vibrate(ms){
+  if(state.settings.haptic && navigator.vibrate) navigator.vibrate(ms);
+}
+
+/* ---------------------------------------------------------
+   SOUND EFFECTS (tiny WebAudio blips, no external files)
+--------------------------------------------------------- */
+let audioCtx = null;
+function getAudioCtx(){
+  if(!audioCtx){
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if(AC) audioCtx = new AC();
+  }
+  return audioCtx;
+}
+function playTone(freq, duration, type, gainPeak){
+  if(!state.settings.sound) return;
+  const ctx = getAudioCtx();
+  if(!ctx) return;
+  if(ctx.state === 'suspended') ctx.resume();
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = type || 'sine';
+  osc.frequency.value = freq;
+  gain.gain.value = 0;
+  osc.connect(gain); gain.connect(ctx.destination);
+  const now = ctx.currentTime;
+  gain.gain.linearRampToValueAtTime(gainPeak || 0.08, now + 0.01);
+  gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+  osc.start(now);
+  osc.stop(now + duration + 0.02);
+}
+const sfx = {
+  click: () => playTone(520, 0.08, 'sine', 0.05),
+  missionDone: () => { playTone(660, 0.09, 'sine', 0.06); setTimeout(()=>playTone(880,0.12,'sine',0.06), 70); },
+  xp: () => playTone(740, 0.1, 'triangle', 0.05),
+  badge: () => { playTone(523,0.12,'sine',0.07); setTimeout(()=>playTone(659,0.12,'sine',0.07),100); setTimeout(()=>playTone(784,0.2,'sine',0.08),200); },
+  success: () => { playTone(392,0.1,'sine',0.06); setTimeout(()=>playTone(587,0.18,'sine',0.07),110); }
+};
+document.addEventListener('click', e=>{
+  if(e.target.closest('.rippleable')) sfx.click();
+});
+
+/* ---------------------------------------------------------
+   HISTORY HELPERS
+--------------------------------------------------------- */
+function getEntry(dateStr){
+  return state.history[dateStr] || { status: dateStr === todayStr() ? 'upcoming' : (dateStr < state.streakStart ? 'upcoming' : 'upcoming'), mood:'🙂', urge:0, trigger:'', helped:'', note:'' };
+}
+function setEntry(dateStr, patch){
+  state.history[dateStr] = Object.assign(getEntry(dateStr), patch);
+  saveState();
+}
+
+/* ---------------------------------------------------------
+   RENDER: HOME
+--------------------------------------------------------- */
+function renderHome(){
+  const streak = currentStreak();
+  const streakNumEl = document.getElementById('streakNum');
+  animateCountUp(streakNumEl, streak);
+  if(lastKnownStreak !== null && streak > lastKnownStreak){
+    animateStreak(streakNumEl, document.querySelector('.ring-wrap'));
+    vibrate(20);
+  }
+  lastKnownStreak = streak;
+  const pct = Math.min(1, streak / state.challengeLength);
+  const circumference = 2*Math.PI*86;
+  const ring = document.getElementById('ringFg');
+  ring.style.strokeDasharray = circumference;
+  ring.style.strokeDashoffset = circumference * (1-pct);
+
+  const messages = ["Keep going.","You're doing better than you think.","Stay steady.","One more day, one more win."];
+  document.getElementById('keepGoing').textContent = messages[streak % messages.length];
+
+  if(state.settings.quotes){
+    document.getElementById('dailyQuote').textContent = QUOTES[dayOfYear(new Date()) % QUOTES.length];
+    document.getElementById('dailyQuote').style.display = '';
+  } else {
+    document.getElementById('dailyQuote').style.display = 'none';
+  }
+
+  document.querySelectorAll('#challengePills button').forEach(b=>{
+    b.classList.toggle('active', Number(b.dataset.len) === state.challengeLength);
+  });
+
+  renderMissionList(document.getElementById('missionListHome'), 4);
+  renderHomeStats();
+  checkBadges();
+  renderNextMilestoneBanner(streak);
+}
+
+function renderNextMilestoneBanner(streak){
+  const el = document.getElementById('nextMilestoneBanner');
+  if(!el) return;
+  const next = MILESTONES.find(m => !state.badges.includes(m.day) && m.day > streak) ||
+               MILESTONES.find(m => !state.badges.includes(m.day));
+  if(!next){ el.textContent = '🏅 All milestones unlocked — legendary.'; return; }
+  const daysLeft = next.day - streak;
+  el.textContent = daysLeft > 0
+    ? `🏅 ${daysLeft} day${daysLeft>1?'s':''} to "${next.name}" (Day ${next.day})`
+    : `🏅 "${next.name}" unlocks today!`;
+}
+
+function renderHomeStats(){
+  animateCountUp(document.getElementById('bestStreakVal'), longestStreak());
+  animateCountUp(document.getElementById('totalDaysVal'), successfulDaysCount());
+  animateCountUp(document.getElementById('xpVal'), state.xp);
+  const badgeLabel = document.getElementById('badgeCountLabel');
+  if(badgeLabel) badgeLabel.textContent = `(${state.badges.length}/${MILESTONES.length})`;
+  const freezeLabel = document.getElementById('freezeCountLabel');
+  if(freezeLabel) freezeLabel.textContent = `(${Math.max(0, 2-freezesUsedThisMonth().length)} left this month)`;
+}
+
+/* ---------------------------------------------------------
+   RENDER: MISSIONS
+--------------------------------------------------------- */
+function renderMissionList(container, limit){
+  if(!container) return;
+  const today = todayStr();
+  const todaysMissions = state.missions[today] || {};
+  const list = limit ? MISSIONS.slice(0, limit) : MISSIONS;
+  container.innerHTML = '';
+  list.forEach(m => {
+    const done = !!todaysMissions[m.id];
+    const row = document.createElement('label');
+    row.className = 'mission-item' + (done ? ' done' : '');
+    row.innerHTML = `<input type="checkbox" ${done?'checked':''} data-mission="${m.id}">
+      <span>${m.label}</span><span class="mission-xp">+${m.xp} XP</span>`;
+    container.appendChild(row);
+  });
+  container.querySelectorAll('input[type=checkbox]').forEach(cb=>{
+    cb.addEventListener('change', () => {
+      const id = cb.dataset.mission;
+      const mission = MISSIONS.find(x=>x.id===id);
+      if(!state.missions[today]) state.missions[today] = {};
+      const wasDone = !!state.missions[today][id];
+      state.missions[today][id] = cb.checked;
+      saveState();
+      if(cb.checked && !wasDone){ addXP(mission.xp); animateMissionComplete(row, mission.xp); vibrate(10); sfx.missionDone(); }
+      if(!cb.checked && wasDone) addXP(-mission.xp);
+      renderMissionList(document.getElementById('missionListHome'), 4);
+      renderMissionList(document.getElementById('missionList'), null);
+    });
+  });
+}
+
+/* ---------------------------------------------------------
+   RENDER: CALENDAR
+--------------------------------------------------------- */
+let viewYear = new Date().getFullYear();
+let viewMonth = new Date().getMonth();
+
+function renderCalendar(){
+  document.getElementById('calTitle').textContent = MONTH_NAMES[viewMonth] + ' ' + viewYear;
+  const grid = document.getElementById('calGrid');
+  grid.innerHTML = '';
+  DOW.forEach(d=>{
+    const el = document.createElement('div');
+    el.className = 'cal-dow';
+    el.textContent = d;
+    grid.appendChild(el);
+  });
+
+  const firstDay = new Date(viewYear, viewMonth, 1).getDay();
+  const numDays = new Date(viewYear, viewMonth+1, 0).getDate();
+  const today = todayStr();
+
+  for(let i=0;i<firstDay;i++){
+    const el = document.createElement('div');
+    el.className = 'cal-day empty';
+    grid.appendChild(el);
+  }
+
+  const dayEls = {};
+  for(let d=1; d<=numDays; d++){
+    const dateStr = viewYear+'-'+String(viewMonth+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');
+    const el = document.createElement('div');
+    let cls = 'cal-day';
+    const entry = state.history[dateStr];
+
+    if(dateStr > today){
+      cls += ' upcoming';
+    } else if(entry){
+      cls += ' ' + entry.status;
+    } else if(dateStr >= state.streakStart){
+      cls += ' completed';
+    }
+    if(dateStr === today) cls += ' today';
+    el.className = cls;
+    el.textContent = d;
+    el.style.animationDelay = Math.min(d*18, 420) + 'ms';
+    attachDayTapHandlers(el, dateStr);
+
+    const festival = FESTIVALS[dateStr];
+    if(festival){
+      const badge = document.createElement('span');
+      badge.className = 'festival-badge';
+      badge.textContent = festival.emoji;
+      badge.title = festival.name;
+      badge.addEventListener('click', (e)=>{
+        e.stopPropagation();
+        openFestivalModal(dateStr, festival);
+      });
+      badge.addEventListener('pointerdown', e=> e.stopPropagation());
+      el.appendChild(badge);
+    }
+
+    grid.appendChild(el);
+    dayEls[dateStr] = el;
+  }
+  requestAnimationFrame(()=> drawStreakChains(grid, dayEls, numDays, viewYear, viewMonth));
+}
+
+/* Draw a subtle glowing line between consecutive successful days (visual streak chain) */
+const SUCCESS_STATUSES = ['completed','strong','urge_handled','frozen'];
+function isDaySuccess(dateStr){
+  const h = state.history[dateStr];
+  if(h) return SUCCESS_STATUSES.includes(h.status);
+  return dateStr >= state.streakStart && dateStr <= todayStr();
+}
+function drawStreakChains(grid, dayEls, numDays, viewYear, viewMonth){
+  grid.querySelectorAll('.chain-line').forEach(l=>l.remove());
+  if(reducedMotion()) return;
+  const gridRect = grid.getBoundingClientRect();
+  for(let d=1; d<numDays; d++){
+    const ds1 = viewYear+'-'+String(viewMonth+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');
+    const ds2 = addDays(ds1, 1);
+    if(ds2 > todayStr()) continue;
+    if(!isDaySuccess(ds1) || !isDaySuccess(ds2)) continue;
+    const el1 = dayEls[ds1], el2 = dayEls[ds2];
+    if(!el1 || !el2) continue;
+    const r1 = el1.getBoundingClientRect(), r2 = el2.getBoundingClientRect();
+    // only connect same-row neighbours (adjacent in the grid, not week-wrap)
+    if(Math.abs(r1.top - r2.top) > 4) continue;
+    const line = document.createElement('div');
+    line.className = 'chain-line';
+    line.style.left = (r1.left - gridRect.left + r1.width/2) + 'px';
+    line.style.top = (r1.top - gridRect.top + r1.height/2 - 1) + 'px';
+    line.style.width = (r2.left - r1.left) + 'px';
+    grid.appendChild(line);
+  }
+}
+
+/* Tap = quick toggle complete/undo (builds the streak instantly).
+   Long-press (450ms) = open full detail editor (mood, trigger, notes, freeze, reset, etc). */
+function attachDayTapHandlers(el, dateStr){
+  const today = todayStr();
+  let pressTimer = null;
+  let longPressed = false;
+
+  const startPress = () => {
+    longPressed = false;
+    pressTimer = setTimeout(()=>{
+      longPressed = true;
+      vibrate(15);
+      openDayModal(dateStr);
+    }, 450);
+  };
+  const cancelPress = () => { clearTimeout(pressTimer); };
+  const endPress = (e) => {
+    clearTimeout(pressTimer);
+    if(longPressed) return;
+    if(dateStr > today) return; // can't quick-complete future days
+    quickToggleDay(dateStr, el);
+  };
+
+  el.addEventListener('pointerdown', startPress);
+  el.addEventListener('pointerup', endPress);
+  el.addEventListener('pointerleave', cancelPress);
+  el.addEventListener('pointercancel', cancelPress);
+}
+
+const DAY_STATUS_CLASSES = ['upcoming','completed','strong','urge_handled','frozen','reset'];
+function quickToggleDay(dateStr, el){
+  const entry = getEntry(dateStr);
+  const successStatuses = ['completed','strong','urge_handled','frozen'];
+  const isSuccess = successStatuses.includes(entry.status);
+  const newStatus = isSuccess ? 'upcoming' : 'completed';
+
+  setEntry(dateStr, { status:newStatus });
+
+  // Update the tapped cell in place (don't rebuild the grid yet) so its animation plays fully.
+  el.classList.remove(...DAY_STATUS_CLASSES);
+  el.classList.add(newStatus);
+  animateCalendarDay(el, isSuccess ? 'uncomplete' : 'complete');
+  if(!isSuccess) vibrate(15);
+
+  renderHome();
+  renderProgress();
+  // Sync the rest of the grid a moment later, after the tap animation has played.
+  setTimeout(renderCalendar, 560);
+}
+
+/* ---------------------------------------------------------
+   DAY MODAL
+--------------------------------------------------------- */
+let activeDayModalDate = null;
+function openDayModal(dateStr){
+  activeDayModalDate = dateStr;
+  const entry = getEntry(dateStr);
+  document.getElementById('dayModalDate').textContent = dateStr;
+  document.getElementById('dayStatus').value = entry.status || 'upcoming';
+  document.getElementById('dayMood').value = entry.mood || '🙂';
+  document.getElementById('dayUrge').value = entry.urge || 0;
+  document.getElementById('dayUrgeVal').textContent = entry.urge || 0;
+  document.getElementById('dayTrigger').value = entry.trigger || '';
+  document.getElementById('dayHelped').value = entry.helped || '';
+  document.getElementById('dayNote').value = entry.note || '';
+  showModal('dayModal');
+}
+
+document.getElementById('dayUrge').addEventListener('input', e=>{
+  document.getElementById('dayUrgeVal').textContent = e.target.value;
+});
+
+document.getElementById('dayModalSave').addEventListener('click', ()=>{
+  setEntry(activeDayModalDate, {
+    status: document.getElementById('dayStatus').value,
+    mood: document.getElementById('dayMood').value,
+    urge: Number(document.getElementById('dayUrge').value),
+    trigger: sanitize(document.getElementById('dayTrigger').value),
+    helped: sanitize(document.getElementById('dayHelped').value),
+    note: sanitize(document.getElementById('dayNote').value)
+  });
+  hideModal('dayModal');
+  renderCalendar();
+  renderProgress();
+});
+
+/* ---------------------------------------------------------
+   SANITIZATION (avoid unsafe HTML in stored notes)
+--------------------------------------------------------- */
+function sanitize(str){
+  return String(str).replace(/[<>]/g, '');
+}
+
+/* ---------------------------------------------------------
+   RENDER: PROGRESS
+--------------------------------------------------------- */
+function renderProgress(){
+  const streak = currentStreak();
+  const score = consistencyScore();
+  const circumference = 2*Math.PI*86;
+  const ring = document.getElementById('scoreRingFg');
+  ring.style.strokeDasharray = circumference;
+  ring.style.strokeDashoffset = circumference * (1-score/100);
+  animateCountUp(document.getElementById('consistencyScore'), score);
+
+  document.getElementById('pCurrent').textContent = streak;
+  document.getElementById('pLongest').textContent = longestStreak();
+  document.getElementById('pSuccess').textContent = successfulDaysCount();
+  document.getElementById('pCompletion').textContent = Math.min(100, Math.round((streak/state.challengeLength)*100)) + '%';
+  document.getElementById('pWeekly').textContent = consistencyForRange(7) + '%';
+  document.getElementById('pMonthly').textContent = consistencyForRange(30) + '%';
+  document.getElementById('pUrges').textContent = urgesHandledCount();
+  document.getElementById('pAvgUrge').textContent = avgUrgeIntensity();
+
+  renderBarChart();
+  renderMoodTrend();
+  renderInsights();
+}
+
+function renderMoodTrend(){
+  const wrap = document.getElementById('moodTrend');
+  if(!wrap) return;
+  const today = new Date();
+  let html = '';
+  for(let i=13;i>=0;i--){
+    const d = new Date(today.getFullYear(), today.getMonth(), today.getDate()-i);
+    const ds = fmtDate(d);
+    const entry = state.history[ds];
+    const mood = entry && entry.mood ? entry.mood : '·';
+    html += `<div style="flex:1;text-align:center;font-size:15px;opacity:${mood==='·'?0.25:1};" title="${ds}">${mood}</div>`;
+  }
+  wrap.innerHTML = html;
+}
+
+function renderBarChart(){
+  const svg = document.getElementById('barChart');
+  const today = new Date();
+  const bars = [];
+  for(let i=13;i>=0;i--){
+    const d = new Date(today.getFullYear(), today.getMonth(), today.getDate()-i);
+    const ds = fmtDate(d);
+    const entry = state.history[ds];
+    let val = 0.15;
+    if(entry && ['completed','strong','urge_handled','frozen'].includes(entry.status)) val = 1;
+    else if(entry && entry.status === 'reset') val = 0.05;
+    else if(!entry && ds >= state.streakStart && ds <= todayStr()) val = 1;
+    bars.push(val);
+  }
+  const w = 280, h = 100, barW = w/14 - 4;
+  let svgContent = '';
+  bars.forEach((v,i)=>{
+    const bh = Math.max(4, v*80);
+    const x = i*(w/14) + 2;
+    const y = h - bh - 6;
+    const color = v>=1 ? '#4ADE80' : (v<0.1 ? '#FF6B6B' : '#3A4256');
+    svgContent += `<rect x="${x}" y="${y}" width="${barW}" height="${bh}" rx="3" fill="${color}"></rect>`;
+  });
+  svg.innerHTML = svgContent;
+}
+
+function renderInsights(){
+  const list = document.getElementById('insightsList');
+  const insights = [];
+  const urgesThisWeek = state.urgeLog.filter(u => daysBetweenInclusive(u.date, todayStr()) <= 7).length;
+  if(urgesThisWeek > 0){
+    insights.push(`You handled ${urgesThisWeek} urge${urgesThisWeek>1?'s':''} this week.`);
+  }
+  const weekly = consistencyForRange(7);
+  const monthly = consistencyForRange(30);
+  if(weekly > monthly){
+    insights.push('Your consistency is improving compared to last month.');
+  } else if(weekly < monthly && monthly > 0){
+    insights.push('This week has been a bit harder than your monthly average — that happens.');
+  }
+  const exerciseDays = Object.keys(state.missions).filter(d => state.missions[d].exercise).length;
+  if(exerciseDays >= 3){
+    insights.push('Your strongest days often follow an exercise mission.');
+  }
+  if(state.resets.length){
+    const reasonCounts = {};
+    state.resets.forEach(r => reasonCounts[r.reason] = (reasonCounts[r.reason]||0)+1);
+    const topReason = Object.entries(reasonCounts).sort((a,b)=>b[1]-a[1])[0];
+    if(topReason) insights.push(`"${topReason[0]}" has been your most common trigger — planning ahead for it may help.`);
+  }
+  if(!insights.length){
+    insights.push('Keep logging your days — insights appear as your history grows.');
+  }
+  list.innerHTML = insights.map(i => `<div class="insight-item">${i}</div>`).join('');
+}
+
+/* ---------------------------------------------------------
+   CHALLENGE SELECTOR
+--------------------------------------------------------- */
+document.getElementById('challengePills').addEventListener('click', e=>{
+  const btn = e.target.closest('button');
+  if(!btn) return;
+  state.challengeLength = Number(btn.dataset.len);
+  saveState();
+  renderHome();
+  renderProgress();
+});
+
+/* ---------------------------------------------------------
+   CHECK-IN MODAL
+--------------------------------------------------------- */
+document.getElementById('checkinBtn').addEventListener('click', ()=>{
+  const today = todayStr();
+  const entry = getEntry(today);
+  document.getElementById('ciMood').value = entry.mood || '🙂';
+  document.getElementById('ciEnergy').value = entry.energy != null ? entry.energy : 5;
+  document.getElementById('ciEnergyVal').textContent = document.getElementById('ciEnergy').value;
+  document.getElementById('ciUrge').value = entry.urge || 0;
+  document.getElementById('ciUrgeVal').textContent = entry.urge || 0;
+  document.getElementById('ciMission').checked = !!(state.missions[today] && Object.values(state.missions[today]).some(Boolean));
+  document.getElementById('ciProud').value = entry.proud || '';
+  showModal('checkinModal');
+});
+document.getElementById('ciEnergy').addEventListener('input', e => document.getElementById('ciEnergyVal').textContent = e.target.value);
+document.getElementById('ciUrge').addEventListener('input', e => document.getElementById('ciUrgeVal').textContent = e.target.value);
+
+document.getElementById('checkinSave').addEventListener('click', ()=>{
+  const today = todayStr();
+  const existing = getEntry(today);
+  const newStatus = existing.status === 'reset' ? 'reset' : 'completed';
+  setEntry(today, {
+    status: newStatus,
+    mood: document.getElementById('ciMood').value,
+    energy: Number(document.getElementById('ciEnergy').value),
+    urge: Number(document.getElementById('ciUrge').value),
+    proud: sanitize(document.getElementById('ciProud').value)
+  });
+  addXP(8);
+  hideModal('checkinModal');
+  renderAll();
+});
+
+/* ---------------------------------------------------------
+   RESET FLOW
+--------------------------------------------------------- */
+let selectedResetReason = null;
+document.getElementById('resetBtn').addEventListener('click', ()=>{
+  selectedResetReason = null;
+  document.getElementById('resetStep1').classList.remove('hidden');
+  document.getElementById('resetStep2').classList.add('hidden');
+  document.getElementById('resetStep3').classList.add('hidden');
+  document.querySelectorAll('#resetReasons button').forEach(b=>b.classList.remove('selected'));
+  document.getElementById('resetChangeNote').value = '';
+  showModal('resetModal');
+});
+
+document.getElementById('resetReasons').addEventListener('click', e=>{
+  const btn = e.target.closest('button');
+  if(!btn) return;
+  selectedResetReason = btn.dataset.r;
+  document.querySelectorAll('#resetReasons button').forEach(b=>b.classList.remove('selected'));
+  btn.classList.add('selected');
+  document.getElementById('resetStep1').classList.add('hidden');
+  document.getElementById('resetStep2').classList.remove('hidden');
+});
+
+document.getElementById('resetConfirmBtn').addEventListener('click', ()=>{
+  const streak = currentStreak();
+  state.bestStreak = Math.max(state.bestStreak, streak);
+  state.resets.push({
+    date: todayStr(),
+    reason: selectedResetReason || 'Other',
+    changeNote: sanitize(document.getElementById('resetChangeNote').value),
+    streakAtReset: streak
+  });
+  setEntry(todayStr(), { status:'reset' });
+  state.streakStart = addDays(todayStr(), 1);
+  saveState();
+  document.getElementById('resetStep2').classList.add('hidden');
+  document.getElementById('resetStep3').classList.remove('hidden');
+  renderAll();
+});
+
+document.getElementById('resetDoneBtn').addEventListener('click', ()=> hideModal('resetModal'));
+
+/* ---------------------------------------------------------
+   STREAK FREEZE
+--------------------------------------------------------- */
+function freezesUsedThisMonth(){
+  const now = new Date();
+  const ym = now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0');
+  return state.freezesUsed.filter(d => d.startsWith(ym));
+}
+
+document.getElementById('freezeBtn').addEventListener('click', ()=>{
+  const today = todayStr();
+  const used = freezesUsedThisMonth();
+  const entry = state.history[today];
+  if(entry && entry.status === 'frozen'){
+    alert("Today's already marked as a freeze day.");
+    return;
+  }
+  if(used.length >= 2){
+    alert('No streak freezes left this month. They renew next month.');
+    return;
+  }
+  setEntry(today, { status:'frozen' });
+  state.freezesUsed.push(today);
+  saveState();
+  const btn = document.getElementById('freezeBtn');
+  btn.classList.add('icing');
+  setTimeout(()=> btn.classList.remove('icing'), 650);
+  renderAll();
+  vibrate(15);
+});
+
+/* ---------------------------------------------------------
+   URGE EMERGENCY MODE
+--------------------------------------------------------- */
+let breathInterval = null;
+let urgeTimerInterval = null;
+let urgeTimeRemaining = 300;
+let urgeBeforeVal = 7;
+
+document.getElementById('urgeBtn').addEventListener('click', ()=>{
+  urgeBeforeVal = 7;
+  showUrgeStep(1);
+  document.getElementById('urgeOverlay').classList.remove('hidden');
+  startBreathing();
+});
+
+function startBreathing(){
+  const phrases = ['Inhale','Hold','Exhale','Hold'];
+  let i = 0;
+  const textEl = document.getElementById('breathText');
+  textEl.textContent = phrases[0];
+  clearInterval(breathInterval);
+  breathInterval = setInterval(()=>{
+    i = (i+1) % phrases.length;
+    textEl.textContent = phrases[i];
+  }, 2000);
+}
+
+const URGE_TIMER_TOTAL = 300;
+const URGE_RING_CIRC = 2*Math.PI*66;
+document.getElementById('urgeToStep2').addEventListener('click', ()=>{
+  clearInterval(breathInterval);
+  showUrgeStep(2);
+  urgeTimeRemaining = URGE_TIMER_TOTAL;
+  const ring = document.getElementById('urgeRingFg');
+  ring.style.strokeDasharray = URGE_RING_CIRC;
+  updateUrgeTimerDisplay();
+  clearInterval(urgeTimerInterval);
+  urgeTimerInterval = setInterval(()=>{
+    urgeTimeRemaining--;
+    updateUrgeTimerDisplay();
+    if(urgeTimeRemaining > 0 && urgeTimeRemaining % 60 === 0){
+      const ringEl = document.getElementById('urgeTimerRing');
+      ringEl.classList.remove('pulse'); void ringEl.offsetWidth; ringEl.classList.add('pulse');
+    }
+    if(urgeTimeRemaining <= 0){
+      clearInterval(urgeTimerInterval);
+      const ringEl = document.getElementById('urgeTimerRing');
+      ringEl.classList.add('pulse');
+    }
+  }, 1000);
+});
+
+function updateUrgeTimerDisplay(){
+  const m = Math.floor(urgeTimeRemaining/60);
+  const s = urgeTimeRemaining%60;
+  document.getElementById('urgeTimer').textContent = m+':'+String(s).padStart(2,'0');
+  const ring = document.getElementById('urgeRingFg');
+  if(ring){
+    const frac = Math.max(0, urgeTimeRemaining/URGE_TIMER_TOTAL);
+    ring.style.strokeDashoffset = URGE_RING_CIRC * (1-frac);
+  }
+}
+
+document.querySelector('#urgeStep2 .option-grid').addEventListener('click', e=>{
+  const btn = e.target.closest('button');
+  if(!btn) return;
+  btn.classList.toggle('selected');
+  vibrate(10);
+});
+
+document.getElementById('urgeToStep3').addEventListener('click', ()=>{
+  clearInterval(urgeTimerInterval);
+  document.getElementById('urgeAfterSlider').value = 5;
+  document.getElementById('urgeAfterVal').textContent = 5;
+  showUrgeStep(3);
+});
+
+document.getElementById('urgeAfterSlider').addEventListener('input', e=>{
+  document.getElementById('urgeAfterVal').textContent = e.target.value;
+});
+
+document.getElementById('urgeFinishBtn').addEventListener('click', ()=>{
+  const after = Number(document.getElementById('urgeAfterSlider').value);
+  state.urgeLog.push({ date: todayStr(), before: urgeBeforeVal, after });
+  const improved = after < urgeBeforeVal;
+  const xpGain = improved ? 15 : 8;
+  addXP(xpGain);
+  const existing = getEntry(todayStr());
+  if(existing.status !== 'reset'){
+    setEntry(todayStr(), { status:'urge_handled', urge: after });
+  }
+  document.getElementById('urgeResultMsg').textContent = improved
+    ? 'Nice. You rode the wave.'
+    : "It's still there, and that's okay. You didn't act on it — that's what matters.";
+  document.getElementById('urgeXpMsg').textContent = '+'+xpGain+' XP';
+  showUrgeStep(4);
+  launchConfetti();
+  sfx.success();
+  renderAll();
+});
+
+document.getElementById('urgeCloseBtn').addEventListener('click', ()=>{
+  document.getElementById('urgeOverlay').classList.add('hidden');
+});
+
+function showUrgeStep(n){
+  [1,2,3,4].forEach(i=>{
+    document.getElementById('urgeStep'+i).classList.toggle('hidden', i!==n);
+  });
+}
+
+/* ---------------------------------------------------------
+   FESTIVAL INFO MODAL (real reference photo via Wikipedia's
+   free public REST API — no key, no cost)
+--------------------------------------------------------- */
+const festivalImgCache = {};
+function openFestivalModal(dateStr, festival){
+  document.getElementById('festivalName').textContent = festival.emoji + '  ' + festival.name;
+  document.getElementById('festivalDate').textContent = parseDate(dateStr).toDateString();
+  const wrap = document.getElementById('festivalImgWrap');
+  showModal('festivalModal');
+
+  if(festivalImgCache[festival.wiki] !== undefined){
+    renderFestivalImg(wrap, festivalImgCache[festival.wiki]);
+    return;
+  }
+  wrap.className = 'festival-img-loading';
+  wrap.textContent = 'Loading photo...';
+  fetch('https://en.wikipedia.org/api/rest_v1/page/summary/' + encodeURIComponent(festival.wiki))
+    .then(r => r.ok ? r.json() : null)
+    .then(data => {
+      const url = data && data.thumbnail && data.thumbnail.source ? data.thumbnail.source : null;
+      festivalImgCache[festival.wiki] = url;
+      renderFestivalImg(wrap, url);
+    })
+    .catch(()=>{
+      festivalImgCache[festival.wiki] = null;
+      renderFestivalImg(wrap, null);
+    });
+}
+function renderFestivalImg(wrap, url){
+  if(url){
+    wrap.className = '';
+    wrap.innerHTML = `<img class="festival-modal-img" src="${url}" alt="">`;
+  } else {
+    wrap.className = 'festival-img-loading';
+    wrap.textContent = 'No photo available (needs internet connection)';
+  }
+}
+
+/* ---------------------------------------------------------
+   MODAL HELPERS
+--------------------------------------------------------- */
+function showModal(id){ document.getElementById(id).classList.remove('hidden'); }
+function hideModal(id){ document.getElementById(id).classList.add('hidden'); }
+document.getElementById('achUnlockCloseBtn').addEventListener('click', ()=>{
+  document.getElementById('achUnlockOverlay').classList.add('hidden');
+});
+document.querySelectorAll('[data-close]').forEach(btn=>{
+  btn.addEventListener('click', () => hideModal(btn.dataset.close));
+});
+
+/* ---------------------------------------------------------
+   NAVIGATION
+--------------------------------------------------------- */
+const NAV_ORDER = ['home','calendar','progress','missions','settings'];
+function updateNavIndicator(btn){
+  const indicator = document.getElementById('navIndicator');
+  if(!indicator || !btn) return;
+  indicator.style.left = (btn.offsetLeft + btn.offsetWidth/2 - 11) + 'px';
+}
+document.querySelectorAll('.nav-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    const prevActive = document.querySelector('.nav-btn.active');
+    const prevIndex = prevActive ? NAV_ORDER.indexOf(prevActive.dataset.view) : 0;
+    const newIndex = NAV_ORDER.indexOf(btn.dataset.view);
+    const direction = newIndex >= prevIndex ? 'slide-in-right' : 'slide-in-left';
+
+    document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    btn.classList.remove('just-tapped'); void btn.offsetWidth; btn.classList.add('just-tapped');
+    setTimeout(()=> btn.classList.remove('just-tapped'), 420);
+    updateNavIndicator(btn);
+    document.querySelectorAll('.view').forEach(v=>v.classList.remove('active','slide-in-right','slide-in-left'));
+    const target = document.getElementById('view-'+btn.dataset.view);
+    target.classList.add('active', direction);
+    if(btn.dataset.view === 'calendar') renderCalendar();
+    if(btn.dataset.view === 'progress') renderProgress();
+    if(btn.dataset.view === 'missions') renderMissionList(document.getElementById('missionList'), null);
+    if(btn.dataset.view === 'music') renderMusicView();
+  });
+});
+window.addEventListener('resize', ()=> updateNavIndicator(document.querySelector('.nav-btn.active')));
+
+document.getElementById('calPrev').addEventListener('click', ()=>{
+  viewMonth--; if(viewMonth<0){ viewMonth=11; viewYear--; }
+  renderCalendar();
+});
+document.getElementById('calNext').addEventListener('click', ()=>{
+  viewMonth++; if(viewMonth>11){ viewMonth=0; viewYear++; }
+  renderCalendar();
+});
+
+/* ---------------------------------------------------------
+   PRIVACY TOGGLE (blur sensitive numbers)
+--------------------------------------------------------- */
+document.getElementById('privacyToggleBtn').addEventListener('click', ()=>{
+  document.getElementById('app').classList.toggle('privacy-mode');
+  const on = document.getElementById('app').classList.contains('privacy-mode');
+  document.querySelectorAll('.streak-num, .stat-chip b').forEach(el=>{
+    el.style.filter = on ? 'blur(6px)' : 'none';
+  });
+});
+
+/* ---------------------------------------------------------
+   SETTINGS
+--------------------------------------------------------- */
+function applySettingsToUI(){
+  document.getElementById('themeSelect').value = state.settings.theme;
+  document.getElementById('soundToggle').checked = state.settings.sound;
+  document.getElementById('hapticToggle').checked = state.settings.haptic;
+  document.getElementById('quotesToggle').checked = state.settings.quotes;
+  document.getElementById('reminderTime').value = state.settings.reminderTime || '';
+  document.getElementById('pinToggle').checked = !!state.settings.pin;
+  document.documentElement.setAttribute('data-theme', state.settings.theme);
+  updateNotifPermUI();
+}
+
+document.getElementById('themeSelect').addEventListener('change', e=>{
+  state.settings.theme = e.target.value;
+  document.documentElement.setAttribute('data-theme', state.settings.theme);
+  saveState();
+});
+document.getElementById('soundToggle').addEventListener('change', e=>{ state.settings.sound = e.target.checked; saveState(); });
+document.getElementById('hapticToggle').addEventListener('change', e=>{ state.settings.haptic = e.target.checked; saveState(); });
+document.getElementById('quotesToggle').addEventListener('change', e=>{ state.settings.quotes = e.target.checked; saveState(); renderHome(); });
+document.getElementById('reminderTime').addEventListener('change', e=>{ state.settings.reminderTime = e.target.value; state.lastReminderFired = null; saveState(); });
+
+/* ---------------------------------------------------------
+   DAILY REMINDER NOTIFICATION (best-effort, page must be open;
+   static single-file apps can't do true background push)
+--------------------------------------------------------- */
+function updateNotifPermUI(){
+  const btn = document.getElementById('notifPermBtn');
+  const label = document.getElementById('notifPermLabel');
+  if(!('Notification' in window)){
+    label.textContent = 'Notifications not supported on this browser';
+    btn.classList.add('hidden');
+    return;
+  }
+  if(Notification.permission === 'granted'){
+    label.textContent = 'Browser notifications enabled';
+    btn.textContent = 'Enabled'; btn.disabled = true;
+  } else if(Notification.permission === 'denied'){
+    label.textContent = 'Notifications blocked — allow them in browser settings';
+    btn.textContent = 'Blocked'; btn.disabled = true;
+  } else {
+    label.textContent = 'Enable browser notification';
+    btn.textContent = 'Allow'; btn.disabled = false;
+  }
+}
+document.getElementById('notifPermBtn').addEventListener('click', ()=>{
+  if(!('Notification' in window)) return;
+  Notification.requestPermission().then(updateNotifPermUI);
+});
+function checkDailyReminder(){
+  if(!state.settings.reminderTime) return;
+  if(!('Notification' in window) || Notification.permission !== 'granted') return;
+  const now = new Date();
+  const hhmm = String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0');
+  const key = todayStr()+'_'+state.settings.reminderTime;
+  if(hhmm === state.settings.reminderTime && state.lastReminderFired !== key){
+    state.lastReminderFired = key;
+    saveState();
+    try{
+      new Notification('RESET 30', { body: "Time for your daily check-in — keep day "+currentStreak()+" going.", tag:'reset30-reminder' });
+    }catch(e){ /* some browsers require a service worker; fail silently */ }
+  }
+}
+setInterval(checkDailyReminder, 30000);
+
+document.getElementById('exportBtn').addEventListener('click', ()=>{
+  const blob = new Blob([JSON.stringify(state, null, 2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'reset30-data.json';
+  a.click();
+  URL.revokeObjectURL(url);
+});
+
+document.getElementById('importInput').addEventListener('change', e=>{
+  const file = e.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = ()=>{
+    try{
+      const imported = JSON.parse(reader.result);
+      state = Object.assign(defaultState(), imported, {
+        settings: Object.assign(defaultState().settings, imported.settings || {})
+      });
+      saveState();
+      applySettingsToUI();
+      renderAll();
+      alert('Data imported.');
+    }catch(err){
+      alert('This file could not be read as valid backup data.');
+    }
+  };
+  reader.readAsText(file);
+});
+
+document.getElementById('clearHistoryBtn').addEventListener('click', ()=>{
+  if(confirm('Clear all calendar and check-in history? Your streak and settings will stay.')){
+    state.history = {};
+    state.missions = {};
+    state.urgeLog = [];
+    saveState();
+    renderAll();
+  }
+});
+
+document.getElementById('deleteAllBtn').addEventListener('click', ()=>{
+  if(confirm('This deletes everything permanently, including your streak. Continue?')){
+    localStorage.removeItem(STORAGE_KEY);
+    state = defaultState();
+    saveState();
+    applySettingsToUI();
+    renderAll();
+  }
+});
+
+/* PIN LOCK */
+let pinBuffer = '';
+let pinMode = 'unlock'; // 'unlock' | 'set' | 'confirm'
+let pinFirstEntry = '';
+
+function updatePinDots(){
+  const dots = document.getElementById('pinDots');
+  dots.innerHTML = '';
+  for(let i=0;i<4;i++){
+    const s = document.createElement('span');
+    if(i < pinBuffer.length) s.classList.add('filled');
+    dots.appendChild(s);
+  }
+}
+
+document.querySelectorAll('.pin-pad button').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    const k = btn.dataset.k;
+    if(k === 'clear'){ pinBuffer=''; }
+    else if(k === 'del'){ pinBuffer = pinBuffer.slice(0,-1); }
+    else if(pinBuffer.length < 4){ pinBuffer += k; }
+    updatePinDots();
+    document.getElementById('pinError').textContent = '';
+
+    if(pinBuffer.length === 4){
+      if(pinMode === 'unlock'){
+        if(pinBuffer === state.settings.pin){
+          document.getElementById('pinOverlay').classList.add('hidden');
+          bootApp();
+        } else {
+          document.getElementById('pinError').textContent = 'Incorrect PIN';
+          pinBuffer='';
+          updatePinDots();
+        }
+      } else if(pinMode === 'set'){
+        pinFirstEntry = pinBuffer;
+        pinBuffer = '';
+        updatePinDots();
+        pinMode = 'confirm';
+        document.getElementById('pinTitle').textContent = 'Confirm PIN';
+      } else if(pinMode === 'confirm'){
+        if(pinBuffer === pinFirstEntry){
+          state.settings.pin = pinBuffer;
+          saveState();
+          document.getElementById('pinOverlay').classList.add('hidden');
+        } else {
+          document.getElementById('pinError').textContent = "PINs didn't match, try again";
+          pinMode = 'set';
+          pinBuffer=''; pinFirstEntry='';
+          updatePinDots();
+          document.getElementById('pinTitle').textContent = 'Set a PIN';
+        }
+      }
+    }
+  });
+});
+
+document.getElementById('pinToggle').addEventListener('change', e=>{
+  if(e.target.checked){
+    pinMode = 'set'; pinBuffer=''; pinFirstEntry='';
+    document.getElementById('pinTitle').textContent = 'Set a PIN';
+    updatePinDots();
+    document.getElementById('pinOverlay').classList.remove('hidden');
+  } else {
+    state.settings.pin = null;
+    saveState();
+  }
+});
+
+/* ---------------------------------------------------------
+   ACHIEVEMENTS MODAL
+--------------------------------------------------------- */
+document.getElementById('achievementsBtn').addEventListener('click', ()=>{
+  const grid = document.getElementById('achievementsGrid');
+  grid.innerHTML = MILESTONES.map(m => {
+    const unlocked = state.badges.includes(m.day);
+    return `<div class="ach-card ${unlocked?'unlocked':'locked'}">
+      <span class="ach-icon">${unlocked ? '🏅' : '🔒'}</span>
+      <div class="ach-name">${m.name}</div>
+      <div class="ach-day">Day ${m.day}</div>
+    </div>`;
+  }).join('');
+  showModal('achievementsModal');
+});
+
+/* ---------------------------------------------------------
+   JOURNAL TIMELINE
+--------------------------------------------------------- */
+function renderJournalList(filterText){
+  const list = document.getElementById('journalList');
+  const q = (filterText || '').trim().toLowerCase();
+  let dates = Object.keys(state.history).sort((a,b)=> b.localeCompare(a));
+  if(q){
+    dates = dates.filter(ds => {
+      const h = state.history[ds];
+      const haystack = [ds, h.status, h.trigger, h.helped, h.note, h.proud].filter(Boolean).join(' ').toLowerCase();
+      return haystack.includes(q);
+    });
+  }
+  if(!dates.length){
+    list.innerHTML = `<div class="journal-empty">${q ? 'No entries match your search.' : 'No entries yet. Log a day from the calendar to see it here.'}</div>`;
+  } else {
+    list.innerHTML = dates.map(ds => {
+      const h = state.history[ds];
+      const statusLabel = { completed:'Completed', strong:'Strong day', urge_handled:'Urge handled', frozen:'Streak freeze', reset:'Reset', upcoming:'Upcoming' }[h.status] || h.status;
+      const parts = [];
+      if(h.mood) parts.push(h.mood);
+      parts.push(statusLabel);
+      if(typeof h.urge === 'number' && h.urge > 0) parts.push('Urge '+h.urge+'/10');
+      const noteBits = [h.trigger, h.helped, h.note, h.proud].filter(Boolean);
+      return `<div class="journal-item">
+        <div class="journal-date">${ds}</div>
+        <div class="journal-meta">${parts.join(' · ')}</div>
+        ${noteBits.length ? `<div class="journal-note">${noteBits.join(' — ')}</div>` : ''}
+      </div>`;
+    }).join('');
+  }
+}
+document.getElementById('journalBtn').addEventListener('click', ()=>{
+  document.getElementById('journalSearch').value = '';
+  renderJournalList('');
+  showModal('journalModal');
+});
+document.getElementById('journalSearch').addEventListener('input', e=> renderJournalList(e.target.value));
+
+/* ---------------------------------------------------------
+   WEEKLY REVIEW
+--------------------------------------------------------- */
+function isoWeekKey(d){
+  const date = new Date(d.getTime());
+  date.setHours(0,0,0,0);
+  date.setDate(date.getDate() + 3 - ((date.getDay()+6)%7));
+  const week1 = new Date(date.getFullYear(),0,4);
+  const weekNum = 1 + Math.round(((date - week1)/86400000 - 3 + ((week1.getDay()+6)%7))/7);
+  return date.getFullYear()+'-W'+weekNum;
+}
+
+function maybeShowWeeklyReview(){
+  const now = new Date();
+  if(now.getDay() !== 0) return; // only on Sundays
+  const key = isoWeekKey(now);
+  if(state.lastWeeklyReviewWeek === key) return;
+  state.lastWeeklyReviewWeek = key;
+  saveState();
+
+  const urgesThisWeek = state.urgeLog.filter(u => daysBetweenInclusive(u.date, todayStr()) <= 7).length;
+  const missionsThisWeek = Object.keys(state.missions)
+    .filter(d => daysBetweenInclusive(d, todayStr()) <= 7)
+    .reduce((sum,d) => sum + Object.values(state.missions[d]).filter(Boolean).length, 0);
+  const weekly = consistencyForRange(7);
+
+  document.getElementById('weeklyReviewBody').innerHTML = `
+    <div class="wr-stat"><span>Weekly consistency</span><b>${weekly}%</b></div>
+    <div class="wr-stat"><span>Urges handled</span><b>${urgesThisWeek}</b></div>
+    <div class="wr-stat"><span>Missions completed</span><b>${missionsThisWeek}</b></div>
+    <div class="wr-stat"><span>Current streak</span><b>${currentStreak()} days</b></div>
+  `;
+  showModal('weeklyReviewModal');
+}
+document.getElementById('weeklyReviewCloseBtn').addEventListener('click', ()=> hideModal('weeklyReviewModal'));
+
+/* ---------------------------------------------------------
+   SHARE CARD
+--------------------------------------------------------- */
+function drawShareCard(){
+  const canvas = document.getElementById('shareCanvas');
+  const ctx = canvas.getContext('2d');
+  const w = canvas.width, h = canvas.height;
+
+  const grad = ctx.createLinearGradient(0,0,w,h);
+  grad.addColorStop(0, '#141033');
+  grad.addColorStop(1, '#05060d');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0,0,w,h);
+
+  ctx.fillStyle = 'rgba(124,92,255,0.5)';
+  for(let i=0;i<40;i++){
+    ctx.beginPath();
+    ctx.arc(Math.random()*w, Math.random()*h, Math.random()*1.6, 0, Math.PI*2);
+    ctx.fill();
+  }
+
+  ctx.textAlign = 'center';
+  ctx.fillStyle = '#8B93A8';
+  ctx.font = '600 13px sans-serif';
+  ctx.fillText('RESET 30', w/2, 60);
+
+  ctx.fillStyle = '#F1F4FB';
+  ctx.font = '800 84px sans-serif';
+  ctx.fillText(String(currentStreak()), w/2, 200);
+
+  ctx.fillStyle = '#8B93A8';
+  ctx.font = '600 14px sans-serif';
+  ctx.fillText('DAYS STRONG', w/2, 228);
+
+  ctx.fillStyle = '#F2B84B';
+  ctx.font = '700 16px sans-serif';
+  ctx.fillText('🔥 Best streak: '+longestStreak()+' days', w/2, 290);
+
+  ctx.fillStyle = '#3FD6C8';
+  ctx.font = '700 16px sans-serif';
+  ctx.fillText('XP: '+state.xp, w/2, 320);
+
+  ctx.fillStyle = '#8B93A8';
+  ctx.font = 'italic 13px sans-serif';
+  wrapText(ctx, QUOTES[dayOfYear(new Date()) % QUOTES.length], w/2, 380, w-60, 18);
+}
+
+function wrapText(ctx, text, x, y, maxWidth, lineHeight){
+  const words = text.split(' ');
+  let line = '';
+  let lines = [];
+  words.forEach(word => {
+    const test = line + word + ' ';
+    if(ctx.measureText(test).width > maxWidth && line){
+      lines.push(line);
+      line = word + ' ';
+    } else line = test;
+  });
+  lines.push(line);
+  lines.forEach((l,i) => ctx.fillText(l.trim(), x, y + i*lineHeight));
+}
+
+document.getElementById('shareBtn').addEventListener('click', ()=>{
+  showModal('shareModal');
+  setTimeout(drawShareCard, 50);
+});
+
+document.getElementById('shareDownloadBtn').addEventListener('click', async ()=>{
+  const canvas = document.getElementById('shareCanvas');
+  canvas.toBlob(async blob => {
+    if(navigator.share && navigator.canShare && navigator.canShare({ files:[new File([blob],'reset30-streak.png',{type:'image/png'})] })){
+      try{
+        await navigator.share({ files:[new File([blob],'reset30-streak.png',{type:'image/png'})], title:'My RESET 30 progress' });
+        return;
+      }catch(e){ /* fall through to download */ }
+    }
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = 'reset30-streak.png';
+    a.click();
+    URL.revokeObjectURL(url);
+  }, 'image/png');
+});
+
+/* ---------------------------------------------------------
+   PARTICLES BACKGROUND
+--------------------------------------------------------- */
+function initParticles(){
+  const canvas = document.getElementById('particles');
+  const ctx = canvas.getContext('2d');
+  let w,h;
+  function resize(){ w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; }
+  resize();
+  window.addEventListener('resize', resize);
+
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const count = reduced ? 0 : 34;
+  const dots = Array.from({length:count}, ()=>({
+    x: Math.random()*w, y: Math.random()*h, r: 0.6+Math.random()*1.6,
+    vy: 0.06+Math.random()*0.12, alpha: 0.15+Math.random()*0.3
+  }));
+
+  let rafId = null;
+  function tick(){
+    if(document.hidden){ rafId = null; return; }
+    ctx.clearRect(0,0,w,h);
+    dots.forEach(d=>{
+      d.y -= d.vy;
+      if(d.y < -5) d.y = h+5;
+      ctx.beginPath();
+      ctx.arc(d.x, d.y, d.r, 0, Math.PI*2);
+      ctx.fillStyle = `rgba(124,92,255,${d.alpha})`;
+      ctx.fill();
+    });
+    rafId = requestAnimationFrame(tick);
+  }
+  document.addEventListener('visibilitychange', ()=>{
+    if(!document.hidden && rafId === null) tick();
+  });
+  tick();
+}
+
+/* ---------------------------------------------------------
+   MUSIC SYSTEM (Jamendo API v3.0)
+--------------------------------------------------------- */
+const JAMENDO_CLIENT_ID = "6b795895";
+const JAMENDO_BASE = "https://api.jamendo.com/v3.0";
+const MUSIC_STORAGE_KEY = "reset30_music_v1";
+
+const MUSIC_CATEGORIES = {
+  focus:        { label: "Focus",        tag: "study" },
+  calm:         { label: "Calm",         tag: "calm" },
+  sleep:        { label: "Sleep",        tag: "sleep" },
+  workout:      { label: "Workout",      tag: "workout" },
+  motivation:   { label: "Motivation",   tag: "energetic" },
+  instrumental: { label: "Instrumental", tag: "instrumental" }
+};
+
+function defaultMusicPrefs(){
+  return {
+    favorites: {},        // id -> track meta
+    recentlyPlayed: [],   // array of track meta, most recent first, max 20
+    volume: 0.8,
+    lastCategory: "focus",
+    shuffle: false,
+    repeat: false
+  };
+}
+function loadMusicPrefs(){
+  try{
+    const raw = localStorage.getItem(MUSIC_STORAGE_KEY);
+    if(raw){
+      const parsed = JSON.parse(raw);
+      return Object.assign(defaultMusicPrefs(), parsed, { favorites: Object.assign({}, parsed.favorites || {}) });
+    }
+  }catch(e){ console.warn("Could not load music preferences", e); }
+  return defaultMusicPrefs();
+}
+function saveMusicPrefs(){
+  try{ localStorage.setItem(MUSIC_STORAGE_KEY, JSON.stringify(musicPrefs)); }
+  catch(e){ console.warn("Could not save music preferences", e); }
+}
+
+let musicPrefs = loadMusicPrefs();
+
+const audio = new Audio();
+audio.preload = "metadata";
+
+let musicQueue = [];
+let musicQueueIndex = -1;
+let currentTrack = null;
+let musicIsPlaying = false;
+let musicTrackFailCount = 0;
+let musicSearchDebounce = null;
+let musicSearchAbortToken = 0;
+let musicCategoryAbortToken = 0;
+let musicLoadedCategory = null;
+let fullProgressDragging = false;
+
+function jamendoTrackFromApi(t){
+  return {
+    id: String(t.id),
+    name: t.name || "Untitled",
+    artist: t.artist_name || "Unknown artist",
+    image: t.image || t.album_image || "",
+    duration: Number(t.duration) || 0,
+    audio: t.audio || "",
+    audiodownload: t.audiodownload || "",
+    audiodownload_allowed: !!t.audiodownload_allowed,
+    license: t.license_ccurl || ""
+  };
+}
+
+function fetchJamendoTracks(params){
+  const qs = new URLSearchParams(Object.assign({
+    client_id: JAMENDO_CLIENT_ID,
+    format: "json",
+    limit: "20",
+    include: "musicinfo",
+    audioformat: "mp32"
+  }, params));
+  return fetch(JAMENDO_BASE + "/tracks/?" + qs.toString())
+    .then(r => {
+      if(!r.ok){
+        console.error("Jamendo HTTP error", r.status, r.statusText);
+        throw new Error("Jamendo request failed: " + r.status);
+      }
+      return r.json();
+    })
+    .then(data => {
+      if(data && data.headers && data.headers.status && data.headers.status !== "success"){
+        console.error("Jamendo API error", data.headers);
+        throw new Error(data.headers.error_message || "Jamendo API error");
+      }
+      return (data && Array.isArray(data.results) ? data.results.map(jamendoTrackFromApi) : []);
+    });
+}
+
+function escapeHtml(str){
+  const d = document.createElement("div");
+  d.textContent = str == null ? "" : String(str);
+  return d.innerHTML;
+}
+function formatDuration(sec){
+  sec = Math.max(0, Math.round(sec || 0));
+  const m = Math.floor(sec / 60), s = sec % 60;
+  return m + ":" + String(s).padStart(2, "0");
+}
+
+function showMusicError(retryFn, detail){
+  const box = document.getElementById("musicError");
+  box.classList.remove("hidden");
+  document.getElementById("musicErrorDetail").textContent = detail ? String(detail) : "";
+  document.getElementById("musicRetryBtn").onclick = () => { hideMusicError(); retryFn(); };
+}
+function hideMusicError(){
+  document.getElementById("musicError").classList.add("hidden");
+  document.getElementById("musicErrorDetail").textContent = "";
+}
+
+function renderMusicSkeletons(container, count){
+  container.innerHTML = "";
+  for(let i=0;i<count;i++){
+    const el = document.createElement("div");
+    el.className = "music-skeleton";
+    el.innerHTML = '<div class="music-skeleton-art"></div><div class="music-skeleton-lines"><div class="music-skeleton-line"></div><div class="music-skeleton-line short"></div></div>';
+    container.appendChild(el);
+  }
+}
+
+function renderMusicCards(container, tracks){
+  container._musicQueue = tracks;
+  container.innerHTML = "";
+  if(!tracks.length){
+    container.innerHTML = '<p class="music-card-empty">No tracks found.</p>';
+    return;
+  }
+  tracks.forEach(track => {
+    const isFav = !!musicPrefs.favorites[track.id];
+    const card = document.createElement("div");
+    card.className = "music-card rippleable" + (currentTrack && currentTrack.id === track.id ? " now-playing" : "");
+    card.dataset.id = track.id;
+    card.innerHTML =
+      '<img class="music-card-art" src="' + track.image + '" alt="" loading="lazy">' +
+      '<div class="music-card-info">' +
+        '<div class="music-card-title">' + escapeHtml(track.name) + '</div>' +
+        '<div class="music-card-artist">' + escapeHtml(track.artist) + '</div>' +
+        (track.license ? '<div class="music-card-license"><a href="' + track.license + '" target="_blank" rel="noopener">Source / License</a></div>' : '') +
+      '</div>' +
+      '<div class="music-card-dur">' + formatDuration(track.duration) + '</div>' +
+      '<button class="music-card-fav ' + (isFav ? "active" : "") + '" data-action="fav">' + (isFav ? "❤️" : "♡") + '</button>' +
+      '<button class="music-card-play" data-action="play">▶</button>';
+    container.appendChild(card);
+  });
+}
+
+document.addEventListener("click", e => {
+  const card = e.target.closest(".music-card");
+  if(!card) return;
+  const container = card.closest(".music-card-list");
+  const queue = (container && container._musicQueue) || [];
+  const track = queue.find(t => t.id === card.dataset.id);
+  if(!track) return;
+  const action = e.target.closest("[data-action]");
+  if(action && action.dataset.action === "fav"){ toggleFavorite(track); return; }
+  playTrack(track, queue);
+});
+
+function loadCategoryTracks(cat){
+  const category = MUSIC_CATEGORIES[cat] || MUSIC_CATEGORIES.focus;
+  musicPrefs.lastCategory = cat;
+  saveMusicPrefs();
+  document.getElementById("musicListTitle").textContent = category.label;
+  document.querySelectorAll(".music-cat-btn").forEach(b => b.classList.toggle("active", b.dataset.cat === cat));
+  hideMusicError();
+  const listEl = document.getElementById("musicCardList");
+  renderMusicSkeletons(listEl, 5);
+  const myToken = ++musicCategoryAbortToken;
+  fetchJamendoTracks({ tags: category.tag, fuzzytags: "1", boost: "popularity_total" })
+    .then(tracks => {
+      if(myToken !== musicCategoryAbortToken) return;
+      musicLoadedCategory = cat;
+      renderMusicCards(listEl, tracks);
+    })
+    .catch(err => {
+      console.error("loadCategoryTracks failed:", err);
+      if(myToken !== musicCategoryAbortToken) return;
+      listEl.innerHTML = "";
+      showMusicError(() => loadCategoryTracks(cat), err && err.message);
+    });
+}
+
+function loadCategoryTracksAndAutoplay(cat){
+  const category = MUSIC_CATEGORIES[cat] || MUSIC_CATEGORIES.focus;
+  fetchJamendoTracks({ tags: category.tag, fuzzytags: "1", boost: "popularity_total" })
+    .then(tracks => {
+      musicPrefs.lastCategory = cat;
+      saveMusicPrefs();
+      if(tracks.length) playTrack(tracks[0], tracks);
+    })
+    .catch(err => { console.error("loadCategoryTracksAndAutoplay failed:", err); showMusicError(() => loadCategoryTracksAndAutoplay(cat), err && err.message); });
+}
+
+function searchJamendoTracks(query){
+  const resultsBlock = document.getElementById("musicSearchResultsBlock");
+  const categoryBlock = document.getElementById("musicCategoryBlock");
+  const listEl = document.getElementById("musicSearchList");
+  if(!query || !query.trim()){
+    resultsBlock.classList.add("hidden");
+    categoryBlock.classList.remove("hidden");
+    return;
+  }
+  resultsBlock.classList.remove("hidden");
+  categoryBlock.classList.add("hidden");
+  hideMusicError();
+  renderMusicSkeletons(listEl, 5);
+  const myToken = ++musicSearchAbortToken;
+  fetchJamendoTracks({ namesearch: query.trim(), limit: "16" })
+    .then(tracks => {
+      if(myToken !== musicSearchAbortToken) return;
+      renderMusicCards(listEl, tracks);
+    })
+    .catch(err => {
+      console.error("searchJamendoTracks failed:", err);
+      if(myToken !== musicSearchAbortToken) return;
+      listEl.innerHTML = "";
+      showMusicError(() => searchJamendoTracks(query), err && err.message);
+    });
+}
+
+function renderFavoritesList(){
+  const container = document.getElementById("musicFavList");
+  renderMusicCards(container, Object.values(musicPrefs.favorites));
+  if(!Object.keys(musicPrefs.favorites).length) container.innerHTML = '<p class="music-card-empty">No favorites yet.</p>';
+}
+function renderRecentList(){
+  const container = document.getElementById("musicRecentList");
+  renderMusicCards(container, musicPrefs.recentlyPlayed);
+  if(!musicPrefs.recentlyPlayed.length) container.innerHTML = '<p class="music-card-empty">Nothing played yet.</p>';
+}
+
+function addRecentlyPlayed(track){
+  musicPrefs.recentlyPlayed = musicPrefs.recentlyPlayed.filter(t => t.id !== track.id);
+  musicPrefs.recentlyPlayed.unshift(track);
+  musicPrefs.recentlyPlayed = musicPrefs.recentlyPlayed.slice(0, 20);
+  saveMusicPrefs();
+  renderRecentList();
+}
+
+function toggleFavorite(track){
+  if(musicPrefs.favorites[track.id]) delete musicPrefs.favorites[track.id];
+  else musicPrefs.favorites[track.id] = track;
+  saveMusicPrefs();
+  vibrate(10);
+  document.querySelectorAll('.music-card[data-id="' + track.id + '"] .music-card-fav').forEach(btn => {
+    const active = !!musicPrefs.favorites[track.id];
+    btn.classList.toggle("active", active);
+    btn.textContent = active ? "❤️" : "♡";
+  });
+  renderFavoritesList();
+  updateFullPlayerFavButton();
+}
+
+function playTrack(track, queue){
+  currentTrack = track;
+  musicQueue = (queue && queue.length) ? queue : [track];
+  musicQueueIndex = musicQueue.findIndex(t => t.id === track.id);
+  musicTrackFailCount = 0;
+  audio.src = track.audio;
+  audio.volume = musicPrefs.volume;
+  const playPromise = audio.play();
+  if(playPromise && playPromise.catch) playPromise.catch(() => { musicIsPlaying = false; updatePlayerUI(); });
+  addRecentlyPlayed(track);
+  document.getElementById("miniPlayer").classList.remove("hidden");
+  updatePlayerUI();
+}
+
+function pauseTrack(){
+  audio.pause();
+}
+
+function togglePlayPause(){
+  if(!currentTrack) return;
+  if(musicIsPlaying) pauseTrack();
+  else {
+    const p = audio.play();
+    if(p && p.catch) p.catch(() => {});
+  }
+}
+
+function pickAdjacentIndex(direction){
+  if(!musicQueue.length) return -1;
+  if(musicPrefs.shuffle && musicQueue.length > 1){
+    let idx;
+    do{ idx = Math.floor(Math.random() * musicQueue.length); } while(idx === musicQueueIndex);
+    return idx;
+  }
+  return (musicQueueIndex + direction + musicQueue.length) % musicQueue.length;
+}
+
+function animateTrackChange(cb){
+  const fullOpen = !document.getElementById("fullPlayerOverlay").classList.contains("hidden");
+  if(!fullOpen || reducedMotion()){ cb(); return; }
+  const els = [document.getElementById("fullArt"), document.getElementById("fullTitle"), document.getElementById("fullArtist")];
+  els.forEach(el => el.classList.add("music-fade-out"));
+  setTimeout(() => {
+    cb();
+    els.forEach(el => { el.classList.remove("music-fade-out"); el.classList.add("music-fade-in"); });
+    setTimeout(() => els.forEach(el => el.classList.remove("music-fade-in")), 320);
+  }, 220);
+}
+
+function nextTrack(){
+  const idx = pickAdjacentIndex(1);
+  if(idx < 0) return;
+  musicQueueIndex = idx;
+  animateTrackChange(() => playTrack(musicQueue[idx], musicQueue));
+}
+function previousTrack(){
+  const idx = pickAdjacentIndex(-1);
+  if(idx < 0) return;
+  musicQueueIndex = idx;
+  animateTrackChange(() => playTrack(musicQueue[idx], musicQueue));
+}
+function toggleShuffle(){
+  musicPrefs.shuffle = !musicPrefs.shuffle;
+  saveMusicPrefs();
+  document.getElementById("fullShuffleBtn").classList.toggle("active", musicPrefs.shuffle);
+  vibrate(10);
+}
+function toggleRepeat(){
+  musicPrefs.repeat = !musicPrefs.repeat;
+  saveMusicPrefs();
+  document.getElementById("fullRepeatBtn").classList.toggle("active", musicPrefs.repeat);
+  vibrate(10);
+}
+
+function updateFullPlayerFavButton(){
+  if(!currentTrack) return;
+  document.getElementById("fullPlayerFavBtn").textContent = musicPrefs.favorites[currentTrack.id] ? "❤️" : "♡";
+}
+
+function updatePlayerUI(){
+  const miniPlayer = document.getElementById("miniPlayer");
+  if(!currentTrack){ miniPlayer.classList.add("hidden"); return; }
+  miniPlayer.classList.remove("hidden");
+  const reduced = reducedMotion();
+
+  document.getElementById("miniArt").src = currentTrack.image;
+  document.getElementById("miniTitle").textContent = currentTrack.name;
+  document.getElementById("miniArtist").textContent = currentTrack.artist;
+  document.getElementById("miniPlayPauseBtn").textContent = musicIsPlaying ? "⏸" : "▶";
+  document.getElementById("miniArt").classList.toggle("spin", musicIsPlaying && !reduced);
+  document.getElementById("miniEq").classList.toggle("playing", musicIsPlaying && !reduced);
+  document.querySelector("#miniPlayer .mini-player-inner").classList.toggle("glow", musicIsPlaying);
+
+  document.getElementById("fullArt").src = currentTrack.image;
+  document.getElementById("fullTitle").textContent = currentTrack.name;
+  document.getElementById("fullArtist").textContent = currentTrack.artist;
+  document.getElementById("fullPlayerBg").style.backgroundImage = currentTrack.image ? 'url("' + currentTrack.image + '")' : "none";
+  document.getElementById("fullPlayPauseBtn").textContent = musicIsPlaying ? "⏸" : "▶";
+  document.getElementById("fullArt").classList.toggle("spin", musicIsPlaying && !reduced);
+  document.getElementById("fullEqualizer").classList.toggle("playing", musicIsPlaying && !reduced);
+  document.getElementById("fullShuffleBtn").classList.toggle("active", musicPrefs.shuffle);
+  document.getElementById("fullRepeatBtn").classList.toggle("active", musicPrefs.repeat);
+  const catInfo = MUSIC_CATEGORIES[musicPrefs.lastCategory];
+  document.getElementById("fullPlayerCategory").textContent = catInfo ? catInfo.label : "";
+  updateFullPlayerFavButton();
+  document.getElementById("fullLicense").innerHTML = currentTrack.license
+    ? '<a href="' + currentTrack.license + '" target="_blank" rel="noopener">Source / License</a>'
+    : "";
+
+  document.querySelectorAll(".music-card").forEach(card => {
+    card.classList.toggle("now-playing", card.dataset.id === currentTrack.id);
+  });
+}
+
+function spawnFullPlayerParticles(){
+  const wrap = document.getElementById("fullPlayerParticles");
+  if(wrap.childElementCount || reducedMotion()) return;
+  const isLowEnd = /Android/i.test(navigator.userAgent);
+  const count = isLowEnd ? 9 : 14;
+  for(let i=0;i<count;i++){
+    const span = document.createElement("span");
+    span.style.left = (Math.random()*100) + "%";
+    span.style.animationDuration = (6 + Math.random()*6) + "s";
+    span.style.animationDelay = (Math.random()*6) + "s";
+    wrap.appendChild(span);
+  }
+}
+
+function openFullPlayer(){
+  document.getElementById("fullPlayerOverlay").classList.remove("hidden");
+  spawnFullPlayerParticles();
+  updatePlayerUI();
+}
+function closeFullPlayer(){
+  document.getElementById("fullPlayerOverlay").classList.add("hidden");
+}
+
+function renderMusicView(){
+  if(musicLoadedCategory !== musicPrefs.lastCategory){
+    loadCategoryTracks(musicPrefs.lastCategory);
+  } else {
+    document.querySelectorAll(".music-cat-btn").forEach(b => b.classList.toggle("active", b.dataset.cat === musicPrefs.lastCategory));
+  }
+  renderFavoritesList();
+  renderRecentList();
+}
+
+function initMusicSystem(){
+  audio.volume = musicPrefs.volume;
+  document.getElementById("fullVolumeSlider").value = Math.round(musicPrefs.volume * 100);
+  document.getElementById("fullShuffleBtn").classList.toggle("active", musicPrefs.shuffle);
+  document.getElementById("fullRepeatBtn").classList.toggle("active", musicPrefs.repeat);
+  renderFavoritesList();
+  renderRecentList();
+}
+
+/* Audio element events */
+audio.addEventListener("timeupdate", () => {
+  if(!audio.duration) return;
+  const pct = (audio.currentTime / audio.duration) * 100;
+  const fill = document.getElementById("miniProgressFill");
+  if(fill) fill.style.width = pct + "%";
+  if(!fullProgressDragging){
+    const slider = document.getElementById("fullProgressSlider");
+    if(slider) slider.value = Math.round((audio.currentTime / audio.duration) * 1000);
+  }
+  const cur = document.getElementById("fullCurrentTime");
+  if(cur) cur.textContent = formatDuration(audio.currentTime);
+});
+audio.addEventListener("loadedmetadata", () => {
+  const dur = document.getElementById("fullDuration");
+  if(dur) dur.textContent = formatDuration(audio.duration);
+});
+audio.addEventListener("ended", () => {
+  if(musicPrefs.repeat){
+    audio.currentTime = 0;
+    const p = audio.play();
+    if(p && p.catch) p.catch(() => {});
+    return;
+  }
+  nextTrack();
+});
+audio.addEventListener("error", () => {
+  if(!currentTrack) return;
+  musicTrackFailCount++;
+  if(musicTrackFailCount > musicQueue.length){ musicIsPlaying = false; updatePlayerUI(); return; }
+  nextTrack();
+});
+audio.addEventListener("play", () => { musicIsPlaying = true; updatePlayerUI(); });
+audio.addEventListener("pause", () => { musicIsPlaying = false; updatePlayerUI(); });
+
+document.addEventListener("visibilitychange", () => {
+  const state2 = document.hidden ? "paused" : "running";
+  document.querySelectorAll(".mini-art.spin, .full-art.spin").forEach(el => { el.style.animationPlayState = state2; });
+  document.querySelectorAll(".eq-bars.playing span, .full-equalizer.playing span").forEach(el => { el.style.animationPlayState = state2; });
+});
+
+/* Wiring */
+document.getElementById("miniPlayerTap").addEventListener("click", e => {
+  if(e.target.closest("#miniPlayPauseBtn") || e.target.closest("#miniExpandBtn")) return;
+  openFullPlayer();
+});
+document.getElementById("miniPlayPauseBtn").addEventListener("click", e => { e.stopPropagation(); togglePlayPause(); });
+document.getElementById("miniExpandBtn").addEventListener("click", e => { e.stopPropagation(); openFullPlayer(); });
+document.querySelector("#miniPlayer .mini-progress").addEventListener("click", e => {
+  if(!audio.duration) return;
+  const rect = e.currentTarget.getBoundingClientRect();
+  const pct = (e.clientX - rect.left) / rect.width;
+  audio.currentTime = Math.max(0, Math.min(1, pct)) * audio.duration;
+});
+
+document.getElementById("fullPlayerCloseBtn").addEventListener("click", closeFullPlayer);
+document.getElementById("fullPlayPauseBtn").addEventListener("click", togglePlayPause);
+document.getElementById("fullNextBtn").addEventListener("click", nextTrack);
+document.getElementById("fullPrevBtn").addEventListener("click", previousTrack);
+document.getElementById("fullShuffleBtn").addEventListener("click", toggleShuffle);
+document.getElementById("fullRepeatBtn").addEventListener("click", toggleRepeat);
+document.getElementById("fullPlayerFavBtn").addEventListener("click", () => { if(currentTrack) toggleFavorite(currentTrack); });
+
+const fullProgressSliderEl = document.getElementById("fullProgressSlider");
+fullProgressSliderEl.addEventListener("input", () => { fullProgressDragging = true; });
+fullProgressSliderEl.addEventListener("change", () => {
+  if(audio.duration) audio.currentTime = (fullProgressSliderEl.value / 1000) * audio.duration;
+  fullProgressDragging = false;
+});
+const fullVolumeSliderEl = document.getElementById("fullVolumeSlider");
+fullVolumeSliderEl.addEventListener("input", () => {
+  musicPrefs.volume = fullVolumeSliderEl.value / 100;
+  audio.volume = musicPrefs.volume;
+  saveMusicPrefs();
+});
+
+document.querySelectorAll(".music-cat-btn").forEach(btn => {
+  btn.addEventListener("click", () => loadCategoryTracks(btn.dataset.cat));
+});
+document.getElementById("musicSearchInput").addEventListener("input", e => {
+  clearTimeout(musicSearchDebounce);
+  const q = e.target.value;
+  musicSearchDebounce = setTimeout(() => searchJamendoTracks(q), 400);
+});
+
+document.getElementById("urgeMusicBtn").addEventListener("click", () => {
+  loadCategoryTracksAndAutoplay("calm");
+});
+document.getElementById("focusMusicBtn").addEventListener("click", () => {
+  const musicNavBtn = document.querySelector('.nav-btn[data-view="music"]');
+  if(musicNavBtn) musicNavBtn.click();
+  loadCategoryTracksAndAutoplay("focus");
+});
+
+/* ---------------------------------------------------------
+   RENDER ALL / BOOT
+--------------------------------------------------------- */
+function renderAll(){
+  renderHome();
+  renderCalendar();
+  renderProgress();
+  renderMissionList(document.getElementById('missionList'), null);
+}
+
+function bootApp(){
+  document.getElementById('app').classList.remove('hidden');
+  applySettingsToUI();
+  renderAll();
+  initParticles();
+  initMusicSystem();
+  requestAnimationFrame(()=> updateNavIndicator(document.querySelector('.nav-btn.active')));
+  setTimeout(maybeShowWeeklyReview, 800);
+  checkDailyReminder();
+
+  if(!state.seenWelcome){
+    document.getElementById('welcomeOverlay').classList.remove('hidden');
+  } else {
+    maybeShowDailyReturn();
+  }
+}
+
+document.getElementById('welcomeStartBtn').addEventListener('click', ()=>{
+  state.seenWelcome = true;
+  state.lastOpenedDate = todayStr();
+  saveState();
+  document.getElementById('welcomeOverlay').classList.add('hidden');
+});
+
+function maybeShowDailyReturn(){
+  const today = todayStr();
+  if(state.lastOpenedDate === today) return;
+  state.lastOpenedDate = today;
+  saveState();
+  document.getElementById('dailyReturnDay').textContent = 'DAY '+currentStreak();
+  document.getElementById('dailyReturnPlus').textContent = '+1 DAY';
+  const overlay = document.getElementById('dailyReturnOverlay');
+  overlay.classList.remove('hidden');
+  setTimeout(()=> overlay.classList.add('hidden'), 1700);
+}
+
+function init(){
+  applySettingsToUI();
+  if(state.settings.pin){
+    pinMode = 'unlock';
+    pinBuffer = '';
+    document.getElementById('pinTitle').textContent = 'Enter PIN';
+    updatePinDots();
+    document.getElementById('pinOverlay').classList.remove('hidden');
+  } else {
+    bootApp();
+  }
+}
+
+init();
+})();
+
+</script>
+</body>
+</html>
